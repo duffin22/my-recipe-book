@@ -140,3 +140,7 @@ instructors will score each of your technical requirements using the scale below
  This will serve as a helpful overall gauge of whether you met the project goals,
  but __the more important scores are the individual ones__ above, which can help
  you identify where to focus your efforts for the next project!
+
+#### Class App Ideas
+
+- [App Ideas](https://github.com/ga-students/adi-sea-01-app-ideas)
