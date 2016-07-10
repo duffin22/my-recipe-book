@@ -10,6 +10,8 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class HomePage extends AppCompatActivity {
 
     @Override
@@ -28,5 +30,17 @@ public class HomePage extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+
+        ArrayList<String> items=new ArrayList<>();
+        items.add("All Categories");
+        items.add("Breakfast");
+        items.add("Lunch");
+        items.add("Dinner");
+        items.add("Lite Bites");
+        items.add("Snacks");
+        items.add("Other");
+
+        ListView listview = (ListView) findViewById(R.id.horizonList);
+        listview.setAdapter(new HorizontalListAdapter(this,items));
     }
 }
