@@ -16,25 +16,36 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:elevation="3dp">
+        android:layout_weight="2"
+        android:elevation="2dp"
+        android:background="#fafafa">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:elevation="6dp"
+            android:background="@color/colorPrimaryDark"/>
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="1"
             android:orientation="horizontal"
             android:id="@+id/horizonList"
-            android:elevation="2dp"
-            android:background="@color/colorPrimaryDark">
+            android:elevation="4dp"
+            android:background="@color/colorPrimary"
+            android:divider="@color/colorAccent"
+            android:dividerHeight="1dp">
         </ListView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
-            android:background="@color/colorPrimary">
+            android:layout_weight="0.8"
+            android:background="#9575CD"
+            android:orientation="horizontal"
+            android:elevation="2dp">
 
             
             <EditText
@@ -42,27 +53,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="9"
                 android:hint="Search"
-                android:textColor="#fafafa"
-                android:textColorHint="#fafafa"/>
+                android:textColor="@color/colorAccent"/>
 
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/ic_search"/>
+                android:src="@drawable/ic_search"
+                android:padding="4dp"/>
         </LinearLayout>
-
-
-
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4"
-        android:id="@+id/homeFrameLayout"
-        android:clipToPadding="false">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -71,14 +70,24 @@
             android:textAlignment="center"
             android:background="#fafafa"
             android:textColor="#303030"
-            android:elevation="2dp"/>
+            android:textAllCaps="false"/>
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:id="@+id/homeFrameLayout"
+        android:clipToPadding="false">
 
 
         <GridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="3dp"
             android:numColumns="3"
             android:verticalSpacing="3dp"
             android:horizontalSpacing="3dp"
@@ -92,9 +101,9 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add_circle"
-            fab:fab_colorNormal="#aa303030"
-            fab:fab_colorPressed="#aaaaaaaa"
-            android:elevation="5dp"
+            fab:fab_colorNormal="@color/colorPrimary"
+            fab:fab_colorPressed="@color/colorPrimary"
+            android:elevation="4dp"
             android:scaleType="centerCrop" />
 
 

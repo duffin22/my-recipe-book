@@ -5,5 +5,7 @@
     android:id="@+id/horizontalItem"
     android:text="123abc"
     android:textColor="#fafafa"
+    android:textSize="16dp"
+    android:textAllCaps="true"
     >
 </TextView>
