@@ -16,12 +16,41 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"></LinearLayout>
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:elevation="50dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:paddingTop="10dp"
+            android:src="@drawable/my_recipe"
+            />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/horizontalScrollView"
+            android:layout_gravity="center_horizontal">
+
+             <ListView
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+             </ListView>
+
+
+        </HorizontalScrollView>
+
+
+
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:id="@+id/homeFrameLayout"
         android:clipToPadding="false">
 
@@ -34,8 +63,7 @@
             android:layout_margin="16dp"
             android:src="@drawable/ic_add_circle"
             fab:fab_colorNormal="#aa303030"
-            fab:fab_colorRipple="#F50057"
-            fab:fab_colorPressed="@color/colorPrimary"
+            fab:fab_colorPressed="#aaaaaaaa"
             android:elevation="5dp"
             android:scaleType="centerCrop" />
 

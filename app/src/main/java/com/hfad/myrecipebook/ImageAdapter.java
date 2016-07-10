@@ -52,17 +52,16 @@ public class ImageAdapter extends BaseAdapter {
         return imageView;
     }
 
-    // references to our images
+    // references to images
     private Integer[] mThumbIds = {
             R.drawable.food_tester, R.drawable.burger,
             R.drawable.donuts, R.drawable.fruit,
             R.drawable.meatballs, R.drawable.burger,
             R.drawable.fruit, R.drawable.food_tester,
             R.drawable.donuts, R.drawable.meatballs,R.drawable.food_tester, R.drawable.burger,
-            R.drawable.donuts, R.drawable.fruit,
-            R.drawable.meatballs, R.drawable.burger,
+            R.drawable.fruit, R.drawable.meatballs, R.drawable.burger,
             R.drawable.fruit, R.drawable.food_tester,
-            R.drawable.donuts, R.drawable.meatballs,R.drawable.food_tester, R.drawable.burger,
+            R.drawable.donuts, R.drawable.meatballs, R.drawable.burger,
             R.drawable.donuts, R.drawable.fruit,
             R.drawable.meatballs, R.drawable.burger,
             R.drawable.fruit, R.drawable.food_tester,
