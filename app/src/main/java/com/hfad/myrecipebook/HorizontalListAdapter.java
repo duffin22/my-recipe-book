@@ -65,7 +65,7 @@ public class HorizontalListAdapter extends BaseAdapter {
             public void onClick(View view) {
 
                 Log.i("Adaptor", "Clicked " + position);
-                Toast.makeText(context, "" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "List item " + position, Toast.LENGTH_SHORT).show();
             }
 
 //                Intent intent = new Intent(context.getApplicationContext(), InputActivity.class);

@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,7 +29,7 @@ public class HomePage extends AppCompatActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(HomePage.this, "" + position,
+                Toast.makeText(HomePage.this, "Grid item " + position,
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -40,7 +43,7 @@ public class HomePage extends AppCompatActivity {
         items.add("Snacks");
         items.add("Other");
 
-        ListView listview = (ListView) findViewById(R.id.horizonList);
-        listview.setAdapter(new HorizontalListAdapter(this,items));
+        ListView horScroll = (ListView) findViewById(R.id.horizonList);
+        horScroll.setAdapter(new HorizontalListAdapter(this,items));
     }
 }
