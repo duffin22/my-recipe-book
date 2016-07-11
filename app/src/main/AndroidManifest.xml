@@ -6,10 +6,11 @@
         android:allowBackup="true"
         android:icon="@drawable/circle_icon"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
-        <activity android:name=".HomePage"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".HomePage"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,6 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AddItemActivity"></activity>
     </application>
 
 </manifest>

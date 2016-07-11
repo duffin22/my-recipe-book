@@ -1,6 +1,7 @@
 package com.hfad.myrecipebook;
 
 import android.content.Context;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,10 +47,13 @@ public class HomePage extends AppCompatActivity {
         final InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
 
+        final Context context;
+
 
         bigButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (isBigButton && isSearchButton) {
                     searchBar.setVisibility(View.INVISIBLE);
                     isSearchButton = false;
@@ -96,6 +100,16 @@ public class HomePage extends AppCompatActivity {
                         }
                     });
 
+                    addButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            openAddItemActivity(view);
+                        }
+
+
+
+                    });
+
                 } else {
                     bigButton.setAlpha(1.0f);
                     addButton.setVisibility(View.INVISIBLE);
@@ -124,8 +138,10 @@ public class HomePage extends AppCompatActivity {
         items.add("Lite Bites");
         items.add("Snacks");
         items.add("Other");
+    }
 
-//        ListView horScroll = (ListView) findViewById(R.id.horizonList);
-//        horScroll.setAdapter(new HorizontalListAdapter(this,items));
+    public void openAddItemActivity(View view) {
+        Intent intent = new Intent(this.getApplicationContext(), AddItemActivity.class);
+        this.startActivity(intent);
     }
 }

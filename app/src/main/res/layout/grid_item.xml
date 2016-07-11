@@ -6,6 +6,56 @@
     >
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rating"
+        android:text="7/10"
+        android:layout_gravity="top|end"
+        android:background="@color/softerWhite"
+        android:textColor="@color/white"
+        android:elevation="1dp">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/star_full"
+            android:id="@+id/star1"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/star_full"
+            android:id="@+id/star2"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/star_full"
+            android:id="@+id/star3"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/star_full"
+            android:id="@+id/star4"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/star_empty"
+            android:id="@+id/star5"/>
+
+
+
+
+    </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,7 +70,7 @@
         android:layout_height="31dp"
         android:layout_gravity="bottom"
         android:textColor="@color/white"
-        android:background="@color/colorPrimaryDarkSoft"
+        android:background="@color/softBlack"
         android:text="Chicken"
         android:id="@+id/name"
         android:paddingLeft="1dp"

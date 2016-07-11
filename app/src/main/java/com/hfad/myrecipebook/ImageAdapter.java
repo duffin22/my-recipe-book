@@ -1,6 +1,7 @@
 package com.hfad.myrecipebook;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,10 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by matthewtduffin on 09/07/16.
@@ -17,6 +21,7 @@ import android.widget.TextView;
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     private final LayoutInflater inflater;
+    Recipe[] recipes;
 
     public ImageAdapter(Context c) {
         mContext = c;
@@ -24,7 +29,27 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+
+        ArrayList<String> ingredients=new ArrayList<>();
+        ingredients.add("2 tsp of plain flour");
+
+        recipes=new Recipe[15];
+        recipes[0]=new Recipe("Burger",R.drawable.burger,5,"Lunch",ingredients);
+        recipes[1]=new Recipe("Meatballs",R.drawable.meatballs,3,"Lunch",ingredients);
+        recipes[2]=new Recipe("Donuts",R.drawable.donuts,0,"Lunch",ingredients);
+        recipes[3]=new Recipe("Fruit",R.drawable.fruit,2,"Lunch",ingredients);
+        recipes[4]=new Recipe("Vegetables",R.drawable.food_tester,4,"Lunch",ingredients);
+        recipes[5]=new Recipe("Burger",R.drawable.burger,2,"Lunch",ingredients);
+        recipes[6]=new Recipe("Meatballs",R.drawable.meatballs,3,"Lunch",ingredients);
+        recipes[7]=new Recipe("Donuts",R.drawable.donuts,5,"Lunch",ingredients);
+        recipes[8]=new Recipe("Fruit",R.drawable.fruit,1,"Lunch",ingredients);
+        recipes[9]=new Recipe("Vegetables",R.drawable.food_tester,0,"Lunch",ingredients);
+        recipes[10]=new Recipe("Burger",R.drawable.burger,5,"Lunch",ingredients);
+        recipes[11]=new Recipe("Meatballs",R.drawable.meatballs,1,"Lunch",ingredients);
+        recipes[12]=new Recipe("Donuts",R.drawable.donuts,0,"Lunch",ingredients);
+        recipes[13]=new Recipe("Fruit",R.drawable.fruit,1,"Lunch",ingredients);
+        recipes[14]=new Recipe("Vegetables",R.drawable.food_tester,2,"Lunch",ingredients);
+        return recipes.length;
     }
 
     public Object getItem(int position) {
@@ -40,8 +65,9 @@ public class ImageAdapter extends BaseAdapter {
         Log.d("Position: " , "" + position);
 
         FrameLayout frameLayout;
-        ImageView imageView;
+        ImageView imageView, currentStar;
         TextView textView;
+        LinearLayout ratings;
 
         View v =child;
 
@@ -54,9 +80,29 @@ public class ImageAdapter extends BaseAdapter {
         imageView= (ImageView) v.findViewById(R.id.image);
         textView= (TextView) v.findViewById(R.id.name);
 
-        imageView.setImageResource(mThumbIds[position][0]);
+        imageView.setImageResource(recipes[position].picture);
         imageView.setAlpha(0.7f);
-        textView.setText(mThumbIds[position][1]);
+        textView.setText(recipes[position].title);
+
+        ratings=(LinearLayout) v.findViewById(R.id.rating);
+        for (int i=0;i<5;i++) {
+            currentStar=(ImageView) ratings.getChildAt(i);
+            if (recipes[position].rating > i) {
+                currentStar.setImageResource(R.drawable.star_full);
+            } else {
+                currentStar.setImageResource(R.drawable.star_empty);
+            }
+        }
+
+
+        for (int i=1; i<=5; i++) {
+            if (i<=recipes[position].rating) {
+
+            }
+        }
+
+
+
 
 //        if ((position)%2 ==1) {
 //            textView.setTextColor(mContext.getResources().getColor(R.color.white));
@@ -66,6 +112,10 @@ public class ImageAdapter extends BaseAdapter {
 
         return frameLayout;
     }
+
+
+
+
 
     // references to images
     private Integer[][] mThumbIds = {
