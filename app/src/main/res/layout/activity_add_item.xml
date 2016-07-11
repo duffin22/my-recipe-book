@@ -21,15 +21,29 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
-            <ImageView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
-                android:adjustViewBounds="true"
-                android:id="@+id/image"
-                android:src="@drawable/burger"
-                />
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:id="@+id/image"
+                    android:src="@drawable/burger"
+                    />
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/camera"
+                    android:layout_gravity="end|bottom"
+                    android:elevation="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:id="@+id/cameraButton"/>
+
+            </FrameLayout>
 
 
             <TextView
