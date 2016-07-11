@@ -1,11 +1,31 @@
 
-<!--<FrameLayout>-->
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/frame"
+    >
+
+
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:id="@+id/image"
-        >
-    </ImageView>
-<!--</FrameLayout>-->
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="31dp"
+        android:layout_gravity="bottom"
+        android:textColor="#303030"
+        android:background="@color/softWhite"
+        android:text="Chicken"
+        android:id="@+id/name"
+        android:paddingLeft="1dp"
+        android:paddingBottom="1dp"
+        android:textSize="12dp"/>
+
+</FrameLayout>
