@@ -34,10 +34,15 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:textSize="30dp"
                 android:text="Full name of the recipe (Breakfast)"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/categories"
+                android:prompt="@string/dropDownPrompt"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,6 +51,11 @@
                 android:background="@color/colorPrimaryDarkSoft"
                 android:textColor="@color/white"
                 android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="Rating"/>
 
                 <ImageView
                     android:layout_width="0dp"
@@ -82,6 +92,38 @@
                     android:id="@+id/stars5"/>
 
             </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ingredients"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2tsp Brown Sugar"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="3tsp Plain Flour"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="200g Stuff"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Add Ingredient"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm"
+                android:layout_gravity="center"/>
+
+
         </LinearLayout>
 
 
