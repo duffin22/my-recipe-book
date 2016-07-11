@@ -37,7 +37,7 @@ public class ImageAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(final int position, View child, ViewGroup parent) {
-        Log.d("Postion: " , "" + position);
+        Log.d("Position: " , "" + position);
 
         FrameLayout frameLayout;
         ImageView imageView;
@@ -58,10 +58,11 @@ public class ImageAdapter extends BaseAdapter {
         imageView.setAlpha(0.7f);
         textView.setText(mThumbIds[position][1]);
 
-        if (position%2 ==1) {
-            textView.setTextColor(mContext.getResources().getColor(R.color.white));
-            textView.setBackgroundColor(mContext.getResources().getColor(R.color.softBlack));
-        }
+//        if ((position)%2 ==1) {
+//            textView.setTextColor(mContext.getResources().getColor(R.color.white));
+//            textView.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimaryDarkSoft));
+//            Log.d("GridView item number: ",""+position);
+//        }
 
         return frameLayout;
     }

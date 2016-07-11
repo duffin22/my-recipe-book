@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">My Recipe Book</string>
 
-    <string name="fruit_and_veg">Assorted Seasonal Vegetables</string>
+    <string name="fruit_and_veg">Short Title</string>
     <string name="burger">Five Fully Loaded Burgers Stacked on Top of Each Other</string>
     <string name="fruit">Fruits and Vegetables Arranged in Color Order</string>
     <string name="meatballs">Spaghetti and Meatballs with Marinara Sauce</string>
