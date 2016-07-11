@@ -9,13 +9,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.hfad.myrecipebook.HomePage"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="2"
         android:elevation="0dp"
         android:background="@color/colorPrimaryDark">
@@ -59,7 +59,7 @@
                 android:src="@drawable/add"
                 android:layout_gravity="center_vertical|end"
                 android:elevation="10dp"
-                android:layout_marginRight="50dp"
+                android:layout_marginRight="15dp"
                 android:visibility="invisible"
                 android:id="@+id/addButton"/>
 
@@ -77,7 +77,7 @@
                 android:src="@drawable/search"
                 android:layout_gravity="center_vertical|left"
                 android:elevation="10dp"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="15dp"
                 android:visibility="invisible"
                 android:id="@+id/searchButton"/>
 
@@ -170,8 +170,8 @@
 
     <GridView
         android:id="@+id/gridview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="3"
         android:layout_margin="3dp"
         android:numColumns="3"

@@ -125,7 +125,7 @@ public class HomePage extends AppCompatActivity {
         items.add("Snacks");
         items.add("Other");
 
-        ListView horScroll = (ListView) findViewById(R.id.horizonList);
-        horScroll.setAdapter(new HorizontalListAdapter(this,items));
+//        ListView horScroll = (ListView) findViewById(R.id.horizonList);
+//        horScroll.setAdapter(new HorizontalListAdapter(this,items));
     }
 }
