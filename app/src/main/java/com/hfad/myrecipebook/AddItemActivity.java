@@ -20,6 +20,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,7 +35,9 @@ public class AddItemActivity extends AppCompatActivity {
     EditText addEditText;
     Recipe recipe;
     ImageView star1,star2,star3,star4,star5;
+    Button confirm;
     int lastStarClicked;
+    Spinner category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,9 @@ public class AddItemActivity extends AppCompatActivity {
         final ImageView cameraButton= (ImageView) findViewById(R.id.cameraButton);
 
         ratingBar=(LinearLayout) findViewById(R.id.rating);
-        setRatingBarClickListener(ratingBar, 0);
+        setRatingBarClickListener();
+
+
 
 
 
@@ -112,11 +117,41 @@ public class AddItemActivity extends AppCompatActivity {
                     }
                 });
 
+
+
+
             }
 
 
 
         });
+
+        confirm=(Button) findViewById(R.id.confirm);
+        confirm.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                //get a reference to the spinner
+                category = (Spinner) findViewById(R.id.categories);
+                String selectedValue=String.valueOf(category.getSelectedItem());
+
+                ////add final values to the recipe item
+                recipe.category=selectedValue;
+//                recipe.title;
+//                recipe.picture;
+
+                recipe.rating=lastStarClicked;
+
+
+                Toast.makeText(AddItemActivity.this, "Rating is: "+recipe.rating+"\nCategory is: "+recipe.category
+                                +"\nPicture is: "+recipe.picture+"\nTitle is: "+recipe.title
+                                +"\nLast Ingredient is: "+recipe.ingredients.get(ingredients.size()-1),
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 
 
@@ -135,14 +170,12 @@ public class AddItemActivity extends AppCompatActivity {
         }
     }
 
-    public void  setRatingBarClickListener (LinearLayout l, int i) {
+    public void  setRatingBarClickListener () {
         star1=(ImageView) findViewById(R.id.star1) ;
         star2=(ImageView) findViewById(R.id.star2) ;
         star3=(ImageView) findViewById(R.id.star3) ;
         star4=(ImageView) findViewById(R.id.star4) ;
         star5=(ImageView) findViewById(R.id.star5) ;
-
-        lastStarClicked=0;
 
 
         star1.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +196,8 @@ public class AddItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
+                Toast.makeText(AddItemActivity.this, "Star 1 has been pressed",
+                        Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -185,6 +220,8 @@ public class AddItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
+                Toast.makeText(AddItemActivity.this, "Star 2 has been pressed",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -206,6 +243,8 @@ public class AddItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
+                Toast.makeText(AddItemActivity.this, "Star 3 has been pressed",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -227,6 +266,8 @@ public class AddItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
+                Toast.makeText(AddItemActivity.this, "Star 4 has been pressed",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -248,10 +289,13 @@ public class AddItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
+                Toast.makeText(AddItemActivity.this, "Star 5 has been pressed",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
 
 
     }
+
 }
