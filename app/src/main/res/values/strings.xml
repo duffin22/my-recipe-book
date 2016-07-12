@@ -7,10 +7,9 @@
     <string name="meatballs">Spaghetti and Meatballs with Marinara Sauce</string>
     <string name="donuts">A Big Old Mix of Your Favourite Donuts</string>
 
-    <string name="dropDownPrompt">Select Category</string>
-
 
     <string-array name="categories">
+        <item>Select Category</item>
         <item>Breakfast</item>
         <item>Lunch</item>
         <item>Dinner</item>
