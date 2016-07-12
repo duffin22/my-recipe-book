@@ -26,15 +26,6 @@
             android:elevation="10dp"
             android:id="@+id/cameraButton"/>
 
-        <!--<ImageView-->
-            <!--android:layout_width="56dp"-->
-            <!--android:layout_height="56dp"-->
-            <!--android:src="@drawable/camera"-->
-            <!--android:layout_gravity="end|center"-->
-            <!--android:layout_marginRight="50dp"-->
-            <!--android:elevation="10dp"-->
-            <!--android:id="@+id/cameraButton"/>-->
-
     </FrameLayout>
 
 
@@ -72,28 +63,28 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/star_full"
+                        android:src="@drawable/star_empty"
                         android:id="@+id/star1"/>
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/star_full"
+                        android:src="@drawable/star_empty"
                         android:id="@+id/star2"/>
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/star_full"
+                        android:src="@drawable/star_empty"
                         android:id="@+id/star3"/>
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/star_full"
+                        android:src="@drawable/star_empty"
                         android:id="@+id/star4"/>
 
                     <ImageView
@@ -113,7 +104,7 @@
                     android:scaleType="centerCrop"
                     android:cropToPadding="true"
                     android:id="@+id/imageAdd"
-                    android:src="@drawable/burger"
+                    android:src="@drawable/camera_background"
                     android:padding="3dp"
                     android:elevation="2dp"
                     android:alpha="0.7"

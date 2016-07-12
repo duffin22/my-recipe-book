@@ -30,9 +30,11 @@ public class AddItemActivity extends AppCompatActivity {
     Uri uri;
     ArrayList<String> ingredients;
     ImageView addIngredient, tickIcon;
-    LinearLayout addEdit;
+    LinearLayout addEdit, ratingBar;
     EditText addEditText;
     Recipe recipe;
+    ImageView star1,star2,star3,star4,star5;
+    int lastStarClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,10 @@ public class AddItemActivity extends AppCompatActivity {
         Log.d("Pointer","Entered onCreate method");
 
         final ImageView cameraButton= (ImageView) findViewById(R.id.cameraButton);
+
+        ratingBar=(LinearLayout) findViewById(R.id.rating);
+        setRatingBarClickListener(ratingBar, 0);
+
 
 
         cameraButton.setOnClickListener(new View.OnClickListener() {
@@ -127,5 +133,125 @@ public class AddItemActivity extends AppCompatActivity {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             imageAdd.setImageBitmap(photo);
         }
+    }
+
+    public void  setRatingBarClickListener (LinearLayout l, int i) {
+        star1=(ImageView) findViewById(R.id.star1) ;
+        star2=(ImageView) findViewById(R.id.star2) ;
+        star3=(ImageView) findViewById(R.id.star3) ;
+        star4=(ImageView) findViewById(R.id.star4) ;
+        star5=(ImageView) findViewById(R.id.star5) ;
+
+        lastStarClicked=0;
+
+
+        star1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (lastStarClicked!=1) {
+                    star1.setImageResource(R.drawable.star_full);
+                    star2.setImageResource(R.drawable.star_empty);
+                    star3.setImageResource(R.drawable.star_empty);
+                    star4.setImageResource(R.drawable.star_empty);
+                    star5.setImageResource(R.drawable.star_empty);
+                    lastStarClicked = 1;
+                } else {
+                    star1.setImageResource(R.drawable.star_empty);
+                    star2.setImageResource(R.drawable.star_empty);
+                    star3.setImageResource(R.drawable.star_empty);
+                    star4.setImageResource(R.drawable.star_empty);
+                    star5.setImageResource(R.drawable.star_empty);
+                    lastStarClicked=0;
+                }
+
+            }
+        });
+
+        star2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (lastStarClicked!=2) {
+                    star1.setImageResource(R.drawable.star_full);
+                    star2.setImageResource(R.drawable.star_full);
+                    star3.setImageResource(R.drawable.star_empty);
+                    star4.setImageResource(R.drawable.star_empty);
+                    star5.setImageResource(R.drawable.star_empty);
+                    lastStarClicked = 2;
+                } else {
+                    star1.setImageResource(R.drawable.star_empty);
+                    star2.setImageResource(R.drawable.star_empty);
+                    star3.setImageResource(R.drawable.star_empty);
+                    star4.setImageResource(R.drawable.star_empty);
+                    star5.setImageResource(R.drawable.star_empty);
+                    lastStarClicked=0;
+                }
+            }
+        });
+
+        star3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (lastStarClicked!=3) {
+                    star1.setImageResource(R.drawable.star_full);
+                    star2.setImageResource(R.drawable.star_full);
+                    star3.setImageResource(R.drawable.star_full);
+                    star4.setImageResource(R.drawable.star_empty);
+                    star5.setImageResource(R.drawable.star_empty);
+                    lastStarClicked = 3;
+                } else {
+                    star1.setImageResource(R.drawable.star_empty);
+                    star2.setImageResource(R.drawable.star_empty);
+                    star3.setImageResource(R.drawable.star_empty);
+                    star4.setImageResource(R.drawable.star_empty);
+                    star5.setImageResource(R.drawable.star_empty);
+                    lastStarClicked=0;
+                }
+            }
+        });
+
+        star4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (lastStarClicked!=4) {
+                    star1.setImageResource(R.drawable.star_full);
+                    star2.setImageResource(R.drawable.star_full);
+                    star3.setImageResource(R.drawable.star_full);
+                    star4.setImageResource(R.drawable.star_full);
+                    star5.setImageResource(R.drawable.star_empty);
+                    lastStarClicked = 4;
+                } else {
+                    star1.setImageResource(R.drawable.star_empty);
+                    star2.setImageResource(R.drawable.star_empty);
+                    star3.setImageResource(R.drawable.star_empty);
+                    star4.setImageResource(R.drawable.star_empty);
+                    star5.setImageResource(R.drawable.star_empty);
+                    lastStarClicked=0;
+                }
+            }
+        });
+
+        star5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (lastStarClicked!=5) {
+                    star1.setImageResource(R.drawable.star_full);
+                    star2.setImageResource(R.drawable.star_full);
+                    star3.setImageResource(R.drawable.star_full);
+                    star4.setImageResource(R.drawable.star_full);
+                    star5.setImageResource(R.drawable.star_full);
+                    lastStarClicked = 5;
+                } else {
+                    star1.setImageResource(R.drawable.star_empty);
+                    star2.setImageResource(R.drawable.star_empty);
+                    star3.setImageResource(R.drawable.star_empty);
+                    star4.setImageResource(R.drawable.star_empty);
+                    star5.setImageResource(R.drawable.star_empty);
+                    lastStarClicked=0;
+                }
+            }
+        });
+
+
+
     }
 }
