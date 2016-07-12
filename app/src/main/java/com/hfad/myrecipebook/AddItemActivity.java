@@ -2,16 +2,18 @@ package com.hfad.myrecipebook;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 public class AddItemActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     ImageView imageAdd;
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     public void openCameraActivity(View view) {
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
         Log.d("Pointer","Entered Camera Activity *******");
     }

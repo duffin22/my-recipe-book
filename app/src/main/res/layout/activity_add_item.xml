@@ -10,11 +10,30 @@
     tools:context="com.hfad.myrecipebook.AddItemActivity"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:elevation="0dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/circle_icon"
+            android:layout_marginTop="22dp"
+            android:layout_gravity="center"
+            android:elevation="10dp"
+            android:id="@+id/addBigButton"/>
+
+    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="0dp"
+        android:layout_weight="4">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,40 +49,46 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
+                    android:cropToPadding="true"
                     android:id="@+id/imageAdd"
                     android:src="@drawable/burger"
                     android:padding="3dp"
                     android:elevation="2dp"
+                    android:alpha="0.7"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:textSize="30sp"
+                    android:hint="Enter Title"
+                    android:singleLine="false"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLength="100"
+                    android:maxLines="3"
+                    android:elevation="3dp"
+                    android:background="@color/softBlack"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/softWhite"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="4dp"/>
 
                 <ImageView
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:src="@drawable/camera"
-                    android:layout_gravity="end|bottom"
+                    android:layout_gravity="end|top"
                     android:elevation="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/cameraButton"/>
 
             </FrameLayout>
-
-
-            <LinearLayout
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:layout_width="0px"
-                android:layout_height="0px"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:hint="Enter Title"
-                android:singleLine="false"
-                android:inputType="textCapSentences|textMultiLine"
-                android:maxLength="100"
-                android:maxLines="3"  />
 
             <Spinner
                 android:layout_width="match_parent"
