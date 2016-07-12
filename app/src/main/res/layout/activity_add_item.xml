@@ -24,13 +24,16 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                >
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:id="@+id/imageAdd"
                     android:src="@drawable/burger"
+                    android:padding="3dp"
+                    android:elevation="2dp"
                     />
 
                 <ImageView
@@ -46,17 +49,29 @@
             </FrameLayout>
 
 
-            <TextView
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="0px"
+                android:layout_height="0px"/>
+
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:text="Full name of the recipe (Breakfast)"/>
+                android:textSize="20sp"
+                android:hint="Enter Title"
+                android:singleLine="false"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="100"
+                android:maxLines="3"  />
 
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:entries="@array/categories"
-                android:prompt="@string/dropDownPrompt"/>
+                android:prompt="@string/dropDownPrompt"
+                android:background="@color/colorAccent"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,12 +79,9 @@
                 android:id="@+id/ratings"
                 android:background="@color/colorPrimaryDarkSoft"
                 android:textColor="@color/white"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Rating"/>
+                android:orientation="horizontal"
+                android:paddingRight="50dp"
+                android:paddingLeft="50dp">
 
                 <ImageView
                     android:layout_width="0dp"
@@ -111,20 +123,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingredients"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:background="@color/softBlack"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="2tsp Brown Sugar"/>
+                android:text="2tsp Brown Sugar"
+                android:paddingLeft="10dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="3tsp Plain Flour"/>
+                android:text="3tsp Plain Flour"
+                android:paddingLeft="10dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="200g Stuff"/>
+                android:text="200g Stuff"
+                android:paddingLeft="10dp"/>
 
             <EditText
                 android:layout_width="match_parent"
