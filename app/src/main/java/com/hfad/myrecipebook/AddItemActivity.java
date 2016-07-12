@@ -28,15 +28,19 @@ public class AddItemActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     ImageView imageAdd;
     Uri uri;
-    ArrayList<String> ingredients=new ArrayList<>();
+    ArrayList<String> ingredients;
     ImageView addIngredient, tickIcon;
     LinearLayout addEdit;
     EditText addEditText;
+    Recipe recipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        ingredients=new ArrayList<>();
+        recipe=new Recipe("Default-title",R.drawable.burger,0,"Default-category",ingredients);
 
         final InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
