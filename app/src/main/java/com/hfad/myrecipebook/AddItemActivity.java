@@ -1,17 +1,26 @@
 package com.hfad.myrecipebook;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -20,11 +29,22 @@ public class AddItemActivity extends AppCompatActivity {
     ImageView imageAdd;
     Uri uri;
     ArrayList<String> ingredients=new ArrayList<>();
+    ImageView addIngredient, tickIcon;
+    LinearLayout addEdit;
+    EditText addEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        final InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        addIngredient=(ImageView) findViewById(R.id.addIngredientButton);
+
+        addEdit = (LinearLayout) findViewById(R.id.addEditBar);
+        addEditText=(EditText) findViewById(R.id.addEditText);
 
         ingredients.add("A spoonful of sugar");
         ingredients.add("1000ml of gravy");
@@ -32,7 +52,11 @@ public class AddItemActivity extends AppCompatActivity {
 
         ListView ingredientList = (ListView) findViewById(R.id.ingredientList);
 
-        ingredientList.setAdapter(new IngredientListAdapter(this,ingredients));
+        final IngredientListAdapter adapty=new IngredientListAdapter(this,ingredients);
+
+        ingredientList.setAdapter(adapty);
+        final ViewGroup.LayoutParams params = ingredientList.getLayoutParams();
+        params.height = (101*ingredients.size());
 
         imageAdd=(ImageView) findViewById(R.id.imageAdd);
 
@@ -47,6 +71,41 @@ public class AddItemActivity extends AppCompatActivity {
                 Log.d("Pointer","Entered onClick creator for camera button");
                 openCameraActivity(view);
             }
+        });
+
+        addIngredient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addEdit.setVisibility(View.VISIBLE);
+                tickIcon = (ImageView) findViewById(R.id.tickIcon);
+                addEditText.requestFocus();
+
+
+                tickIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String s=addEditText.getText().toString();
+                        addEdit.setVisibility(View.GONE);
+
+                        if (s.length()>0) {
+                            ingredients.add(s);
+                            adapty.notifyDataSetChanged();
+                            params.height = (101 * ingredients.size());
+                            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            addEditText.setText("");
+                        } else {
+                            Toast.makeText(AddItemActivity.this, "Ingredients cannot have zero length",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+
+            }
+
+
+
         });
     }
 

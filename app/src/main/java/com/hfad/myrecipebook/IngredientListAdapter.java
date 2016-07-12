@@ -49,6 +49,7 @@ public class IngredientListAdapter extends BaseAdapter {
         Log.d("Postion: ", "" + position);
 
         View v = child;
+        ViewGroup vG=parent;
         TextView words;
 
         if (v == null) {
@@ -74,6 +75,10 @@ public class IngredientListAdapter extends BaseAdapter {
 //                context.startActivity(intent);
 
         });
+
+        if (position==(listItems.size()-1)) {
+            vG.setMinimumHeight(23*position);
+        }
 
         return v;
     }

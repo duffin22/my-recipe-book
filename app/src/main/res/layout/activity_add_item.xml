@@ -121,6 +121,11 @@
                     android:focusableInTouchMode="true"
                     />
 
+                <LinearLayout
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_width="0px"
+                    android:layout_height="0px"/>
 
                 <EditText
                     android:layout_width="match_parent"
@@ -144,47 +149,76 @@
 
             </FrameLayout>
 
-            <TextView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ingredients"
-                android:textSize="24sp"
-                android:textColor="@color/softishWhite"
-                android:textAlignment="center"
-                android:background="@color/colorPrimary"
-                android:padding="5dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="0dp"
-                android:layout_marginRight="3dp"
-                android:layout_marginLeft="3dp"/>
+                android:layout_marginTop="-5dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ingredients"
+                    android:textSize="24sp"
+                    android:textColor="@color/softishWhite"
+                    android:textAlignment="center"
+                    android:background="@color/colorPrimary"
+                    android:padding="5dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="12dp"/>
+
+                <ImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/add"
+                    android:layout_gravity="center_vertical|end"
+                    android:elevation="10dp"
+                    android:layout_marginRight="0dp"
+                    android:visibility="visible"
+                    android:id="@+id/addIngredientButton"/>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:elevation="2dp"
+                android:layout_gravity="bottom"
+                android:visibility="gone"
+                android:id="@+id/addEditBar">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"
+                    android:hint="Add Ingredient"
+                    android:id="@+id/addEditText"
+                    android:windowSoftInputMode="stateAlwaysVisible"
+                    android:layout_marginLeft="12dp"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_done"
+                    android:padding="4dp"
+                    android:layout_marginRight="12dp"
+                    android:id="@+id/tickIcon"/>
+            </LinearLayout>
+
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:id="@+id/ingredientList">
+                android:layout_height="wrap_content"
+                android:id="@+id/ingredientList"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="12dp">
 
             </ListView>
 
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="2tsp Brown Sugar"-->
-                <!--android:paddingLeft="10dp"/>-->
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="3tsp Plain Flour"-->
-                <!--android:paddingLeft="10dp"/>-->
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="200g Stuff"-->
-                <!--android:paddingLeft="10dp"/>-->
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Add Ingredient"/>
+
 
             <Spinner
                 android:layout_width="match_parent"
