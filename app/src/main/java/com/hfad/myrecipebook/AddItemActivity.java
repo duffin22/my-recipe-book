@@ -8,21 +8,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class AddItemActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     ImageView imageAdd;
     Uri uri;
+    ArrayList<String> ingredients=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
+        ingredients.add("A spoonful of sugar");
+        ingredients.add("1000ml of gravy");
+        ingredients.add("A partridge in a pear tree");
+
+        ListView ingredientList = (ListView) findViewById(R.id.ingredientList);
+
+        ingredientList.setAdapter(new IngredientListAdapter(this,ingredients));
+
         imageAdd=(ImageView) findViewById(R.id.imageAdd);
 
-        Log.d("Pointer","Entered onCreat method");
+        Log.d("Pointer","Entered onCreate method");
 
         final ImageView cameraButton= (ImageView) findViewById(R.id.cameraButton);
 

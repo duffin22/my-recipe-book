@@ -136,10 +136,11 @@
                     android:background="@color/softBlack"
                     android:textColor="@color/white"
                     android:textColorHint="@color/softWhite"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingBottom="4dp"
+                    android:padding="5dp"
                     android:layout_margin="3dp"/>
+                    <!--android:paddingLeft="8dp"-->
+                    <!--android:paddingRight="8dp"-->
+                    <!--android:paddingBottom="4dp"-->
 
             </FrameLayout>
 
@@ -147,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingredients"
-                android:textSize="24dp"
+                android:textSize="24sp"
                 android:textColor="@color/softishWhite"
                 android:textAlignment="center"
                 android:background="@color/colorPrimary"
@@ -159,7 +160,7 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:id="@+id/ingredientList">
 
             </ListView>
