@@ -133,10 +133,9 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/softWhite"
                     android:padding="5dp"
-                    android:layout_margin="3dp"/>
-                    <!--android:paddingLeft="8dp"-->
-                    <!--android:paddingRight="8dp"-->
-                    <!--android:paddingBottom="4dp"-->
+                    android:layout_margin="3dp"
+                    android:id="@+id/titleEdit"/>
+
 
             </FrameLayout>
 

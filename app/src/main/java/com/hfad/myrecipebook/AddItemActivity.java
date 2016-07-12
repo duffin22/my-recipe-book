@@ -32,7 +32,7 @@ public class AddItemActivity extends AppCompatActivity {
     ArrayList<String> ingredients;
     ImageView addIngredient, tickIcon;
     LinearLayout addEdit, ratingBar;
-    EditText addEditText;
+    EditText addEditText, titleEdit;
     Recipe recipe;
     ImageView star1,star2,star3,star4,star5;
     Button confirm;
@@ -137,7 +137,8 @@ public class AddItemActivity extends AppCompatActivity {
 
                 ////add final values to the recipe item
                 recipe.category=selectedValue;
-//                recipe.title;
+                titleEdit=(EditText) findViewById(R.id.titleEdit);
+                recipe.title=titleEdit.getText().toString();
 //                recipe.picture;
 
                 recipe.rating=lastStarClicked;
