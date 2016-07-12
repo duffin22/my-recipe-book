@@ -53,6 +53,57 @@
                 android:layout_height="360dp"
                 android:layout_gravity="center"
                 >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/rating"
+                    android:text="7/10"
+                    android:layout_gravity="top|end"
+                    android:background="@color/softerWhite"
+                    android:textColor="@color/white"
+                    android:elevation="3dp"
+                    android:paddingTop="5dp">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/star_full"
+                        android:id="@+id/star1"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/star_full"
+                        android:id="@+id/star2"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/star_full"
+                        android:id="@+id/star3"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/star_full"
+                        android:id="@+id/star4"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@drawable/star_empty"
+                        android:id="@+id/star5"/>
+
+
+                </LinearLayout>
+
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -89,59 +140,6 @@
 
             </FrameLayout>
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:entries="@array/categories"
-                android:background="@color/colorAccent"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:id="@+id/ratings"
-                android:background="@color/colorPrimaryDarkSoft"
-                android:textColor="@color/white"
-                android:orientation="horizontal"
-                android:paddingRight="50dp"
-                android:paddingLeft="50dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/star_full"
-                    android:id="@+id/stars1"/>
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/star_full"
-                    android:id="@+id/stars2"/>
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/star_full"
-                    android:id="@+id/stars3"/>
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/star_full"
-                    android:id="@+id/stars4"/>
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:src="@drawable/star_empty"
-                    android:id="@+id/stars5"/>
-
-            </LinearLayout>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,6 +167,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Add Ingredient"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:entries="@array/categories"
+                android:background="@color/colorAccent"
+                />
 
             <Button
                 android:layout_width="wrap_content"
