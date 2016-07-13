@@ -61,6 +61,8 @@ public class EditItemActivity extends AppCompatActivity {
         ///****get input recipe based on the extra that was put in
         Recipe recipe = getIntent().getParcelableExtra("recipe");
 
+        //**********************************************************************************
+        //****** INITIALIZE ALL ELEMENTS OF LAYOUT   ***************************************
         ///set ingredients in display
         ingredients=recipe.ingredients;
         ListView ingredientList = (ListView) findViewById(R.id.ingredientList);
@@ -89,38 +91,36 @@ public class EditItemActivity extends AppCompatActivity {
         ///set spinner to correct category
         category= (Spinner) findViewById(R.id.categories);
         category.setSelection(getCategoryIndex(recipe.category));
+        //**********************************************************************************
 
-
+        //get access to keyboard
         final InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        addIngredient=(ImageView) findViewById(R.id.addIngredientButton);
+
 
         addEdit = (LinearLayout) findViewById(R.id.addEditBar);
+        addEditText=(EditText) findViewById(R.id.addEditText);
 
+//        final ImageView cameraButton= (ImageView) findViewById(R.id.cameraButton);
 
+//        cameraButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("Pointer","Entered onClick creator for camera button");
+//                openCameraActivity();
+//            }
+//        });
 
-
-        final ImageView cameraButton= (ImageView) findViewById(R.id.cameraButton);
-
-
-
-
-
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("Pointer","Entered onClick creator for camera button");
-                openCameraActivity();
-            }
-        });
+        addIngredient=(ImageView) findViewById(R.id.addIngredientButton);
 
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addEdit.setVisibility(View.VISIBLE);
+               // addEditText.requestFocus();
+
                 tickIcon = (ImageView) findViewById(R.id.tickIcon);
-                addEditText.requestFocus();
 
 
                 tickIcon.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +133,7 @@ public class EditItemActivity extends AppCompatActivity {
                             ingredients.add(s);
                             adapty.notifyDataSetChanged();
                             params.height = (101 * ingredients.size());
-                            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                            //inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                             addEditText.setText("");
                         } else {
                             Toast.makeText(EditItemActivity.this, "Ingredients cannot have zero length",
