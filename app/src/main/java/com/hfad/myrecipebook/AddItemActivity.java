@@ -38,7 +38,6 @@ import java.util.Random;
 public class AddItemActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     ImageView imageAdd;
-    Uri uri;
     ArrayList<String> ingredients;
     ImageView addIngredient, tickIcon;
     LinearLayout addEdit, ratingBar;
@@ -59,7 +58,7 @@ public class AddItemActivity extends AppCompatActivity {
         Log.i("TAG","FILE DIRECTORY IS "+fileDirectory);
 
         ingredients=new ArrayList<>();
-        recipe=new Recipe("Default-title",R.drawable.burger,0,"Default-category",ingredients);
+        recipe=new Recipe("Default-title",0,"Default-category",ingredients);
 
         final InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -68,10 +67,6 @@ public class AddItemActivity extends AppCompatActivity {
 
         addEdit = (LinearLayout) findViewById(R.id.addEditBar);
         addEditText=(EditText) findViewById(R.id.addEditText);
-
-        ingredients.add("A spoonful of sugar");
-        ingredients.add("1000ml of gravy");
-        ingredients.add("A partridge in a pear tree");
 
         ListView ingredientList = (ListView) findViewById(R.id.ingredientList);
 
@@ -158,7 +153,7 @@ public class AddItemActivity extends AppCompatActivity {
 
 
                 Toast.makeText(AddItemActivity.this, "Rating is: "+recipe.rating+"\nCategory is: "+recipe.category
-                                +"\nPicture is: "+recipe.picture+"\nTitle is: "+recipe.title
+                                +"\nRecipe location is: "+recipe.uri.toString()+"\nTitle is: "+recipe.title
                                 +"\nLast Ingredient is: "+recipe.ingredients.get(ingredients.size()-1),
                         Toast.LENGTH_SHORT).show();
 
@@ -196,7 +191,7 @@ public class AddItemActivity extends AppCompatActivity {
             imageAdd.setImageBitmap(myBitmap);
 
         } else {
-            Log.i("STUFF","Shit doesn't exist");
+            Log.i("STUFF","Image doesn't exist");
         }
     }
 

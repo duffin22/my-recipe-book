@@ -16,6 +16,7 @@ public class Recipe {
     int rating;
     ArrayList<String> ingredients;
     Uri uri;
+    int rando=(int)(Math.random()*1000000000);
 
     public Recipe(String title, Integer picture, int rating, String category, ArrayList<String> ingredients) {
         this.title=title;
@@ -23,7 +24,7 @@ public class Recipe {
         this.category=category;
         this.rating=rating;
         this.ingredients=ingredients;
-        this.uri=Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/DCIM/",title + ".png"));
+        this.uri=Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/DCIM/",title+rando+ ".png"));
     }
 
     public Recipe(String title, int rating, String category, ArrayList<String> ingredients) {
@@ -31,7 +32,6 @@ public class Recipe {
         this.category=category;
         this.rating=rating;
         this.ingredients=ingredients;
-        int rando=(int)Math.random()*1000000;
         this.uri=Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/DCIM/",title +rando+".png"));
 
     }
