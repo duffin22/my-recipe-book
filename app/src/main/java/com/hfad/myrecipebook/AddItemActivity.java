@@ -3,7 +3,11 @@ package com.hfad.myrecipebook;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +27,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 
 public class AddItemActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
@@ -38,11 +48,15 @@ public class AddItemActivity extends AppCompatActivity {
     Button confirm;
     int lastStarClicked;
     Spinner category;
+    static String fileDirectory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        fileDirectory=Environment.getExternalStorageDirectory().getAbsolutePath(); //  getApplicationContext().getFilesDir().getAbsolutePath();
+        Log.i("TAG","FILE DIRECTORY IS "+fileDirectory);
 
         ingredients=new ArrayList<>();
         recipe=new Recipe("Default-title",R.drawable.burger,0,"Default-category",ingredients);
@@ -84,7 +98,7 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("Pointer","Entered onClick creator for camera button");
-                openCameraActivity(view);
+                openCameraActivity();
             }
         });
 
@@ -139,7 +153,6 @@ public class AddItemActivity extends AppCompatActivity {
                 recipe.category=selectedValue;
                 titleEdit=(EditText) findViewById(R.id.titleEdit);
                 recipe.title=titleEdit.getText().toString();
-//                recipe.picture;
 
                 recipe.rating=lastStarClicked;
 
@@ -149,27 +162,44 @@ public class AddItemActivity extends AppCompatActivity {
                                 +"\nLast Ingredient is: "+recipe.ingredients.get(ingredients.size()-1),
                         Toast.LENGTH_SHORT).show();
 
+
             }
         });
 
 
     }
 
-
-
-    public void openCameraActivity(View view) {
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+    public void openCameraActivity() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, recipe.getUri());
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
         Log.d("Pointer","Entered Camera Activity *******");
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            imageAdd.setImageBitmap(photo);
+            if (data==null) {
+                Log.i("LOG","returned null data ******************");
+                saveFileToImageView(recipe.getUri().getPath());
+            }
+        }
+
+    }
+
+    public void saveFileToImageView(String filePath) {
+        File imgFile = new  File(filePath);
+
+        if(imgFile.exists()){
+
+            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+            imageAdd.setImageBitmap(myBitmap);
+
+        } else {
+            Log.i("STUFF","Shit doesn't exist");
         }
     }
+
 
     public void  setRatingBarClickListener () {
         star1=(ImageView) findViewById(R.id.star1) ;
@@ -298,5 +328,7 @@ public class AddItemActivity extends AppCompatActivity {
 
 
     }
+
+
 
 }
