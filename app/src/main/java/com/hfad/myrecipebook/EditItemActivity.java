@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-public class AddItemActivity extends AppCompatActivity {
+public class EditItemActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     ImageView imageAdd;
     ArrayList<String> ingredients;
@@ -53,13 +53,33 @@ public class AddItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_item);
+        setContentView(R.layout.activity_edit_item);
 
         fileDirectory=Environment.getExternalStorageDirectory().getAbsolutePath(); //  getApplicationContext().getFilesDir().getAbsolutePath();
         Log.i("TAG","FILE DIRECTORY IS "+fileDirectory);
 
-        ingredients=new ArrayList<>();
-        recipe=new Recipe("Default-title",0,"Default-category",ingredients);
+        ///****get input recipe based on the extra that was put in
+        Recipe recipe = getIntent().getParcelableExtra("recipe");
+
+        ///set ingredients in display
+        ingredients=recipe.ingredients;
+        ListView ingredientList = (ListView) findViewById(R.id.ingredientList);
+        final IngredientListAdapter adapty=new IngredientListAdapter(this,ingredients);
+        ingredientList.setAdapter(adapty);
+        final ViewGroup.LayoutParams params = ingredientList.getLayoutParams();
+        params.height = (101*ingredients.size());
+
+
+        ///set image in display
+        imageAdd=(ImageView) findViewById(R.id.imageAdd);
+        imageAdd.setImageURI(recipe.getUri());
+
+
+        ///set title in display
+        titleEdit=(EditText) findViewById(R.id.titleEdit);
+        Log.d("TITLE","********"+recipe.title);
+        titleEdit.setText(recipe.title);
+
 
         final InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -67,19 +87,9 @@ public class AddItemActivity extends AppCompatActivity {
         addIngredient=(ImageView) findViewById(R.id.addIngredientButton);
 
         addEdit = (LinearLayout) findViewById(R.id.addEditBar);
-        addEditText=(EditText) findViewById(R.id.addEditText);
 
-        ListView ingredientList = (ListView) findViewById(R.id.ingredientList);
 
-        final IngredientListAdapter adapty=new IngredientListAdapter(this,ingredients);
 
-        ingredientList.setAdapter(adapty);
-        final ViewGroup.LayoutParams params = ingredientList.getLayoutParams();
-        params.height = (101*ingredients.size());
-
-        imageAdd=(ImageView) findViewById(R.id.imageAdd);
-
-        Log.d("Pointer","Entered onCreate method");
 
         final ImageView cameraButton= (ImageView) findViewById(R.id.cameraButton);
 
@@ -119,7 +129,7 @@ public class AddItemActivity extends AppCompatActivity {
                             inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                             addEditText.setText("");
                         } else {
-                            Toast.makeText(AddItemActivity.this, "Ingredients cannot have zero length",
+                            Toast.makeText(EditItemActivity.this, "Ingredients cannot have zero length",
                                     Toast.LENGTH_SHORT).show();
                         }
 
@@ -136,29 +146,29 @@ public class AddItemActivity extends AppCompatActivity {
 
         });
 
-        confirm=(Button) findViewById(R.id.confirm);
-        confirm.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                //get a reference to the spinner
-                category = (Spinner) findViewById(R.id.categories);
-                String selectedValue=String.valueOf(category.getSelectedItem());
-
-                ////add final values to the recipe item
-                recipe.category=selectedValue;
-                titleEdit=(EditText) findViewById(R.id.titleEdit);
-                recipe.title=titleEdit.getText().toString();
-
-                recipe.rating=lastStarClicked;
-
-                Intent intent = new Intent();
-                intent.putExtra("recipe",recipe);
-                setResult(RESULT_OK, intent);
-                finish();
-
-            }
-        });
+//        confirm=(Button) findViewById(R.id.confirm);
+//        confirm.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                //get a reference to the spinner
+//                category = (Spinner) findViewById(R.id.categories);
+//                String selectedValue=String.valueOf(category.getSelectedItem());
+//
+//                ////add final values to the recipe item
+//                recipe.category=selectedValue;
+//                titleEdit=(EditText) findViewById(R.id.titleEdit);
+//                recipe.title=titleEdit.getText().toString();
+//
+//                recipe.rating=lastStarClicked;
+//
+//                Intent intent = new Intent();
+//                intent.putExtra("recipe",recipe);
+//                setResult(RESULT_OK, intent);
+//                finish();
+//
+//            }
+//        });
 
 
     }
@@ -186,7 +196,6 @@ public class AddItemActivity extends AppCompatActivity {
         if(imgFile.exists()){
 
             Bitmap myBitmap = rotateImage(BitmapFactory.decodeFile(imgFile.getAbsolutePath()),90);
-
 
             imageAdd.setImageBitmap(myBitmap);
 
@@ -231,7 +240,7 @@ public class AddItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
-                Toast.makeText(AddItemActivity.this, "Star 1 has been pressed",
+                Toast.makeText(EditItemActivity.this, "Star 1 has been pressed",
                         Toast.LENGTH_SHORT).show();
 
             }
@@ -255,7 +264,7 @@ public class AddItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
-                Toast.makeText(AddItemActivity.this, "Star 2 has been pressed",
+                Toast.makeText(EditItemActivity.this, "Star 2 has been pressed",
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -278,7 +287,7 @@ public class AddItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
-                Toast.makeText(AddItemActivity.this, "Star 3 has been pressed",
+                Toast.makeText(EditItemActivity.this, "Star 3 has been pressed",
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -301,7 +310,7 @@ public class AddItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
-                Toast.makeText(AddItemActivity.this, "Star 4 has been pressed",
+                Toast.makeText(EditItemActivity.this, "Star 4 has been pressed",
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -324,7 +333,7 @@ public class AddItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
-                Toast.makeText(AddItemActivity.this, "Star 5 has been pressed",
+                Toast.makeText(EditItemActivity.this, "Star 5 has been pressed",
                         Toast.LENGTH_SHORT).show();
             }
         });

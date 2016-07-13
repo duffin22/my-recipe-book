@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +32,7 @@ public class HomePage extends AppCompatActivity {
     private static final int ADD_REQUEST = 1922;
     public boolean isBigButton, isSearchButton;
     ImageAdapter adapty;
+    Recipe lastClickedRecipe;
     ArrayList<Recipe> recipes;
     ArrayList<String> ingredients;
 
@@ -146,10 +148,17 @@ public class HomePage extends AppCompatActivity {
 
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Toast.makeText(HomePage.this, "Grid item " + position,
-                        Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+
+
+                if (position!=0) {
+                    lastClickedRecipe = recipes.get(position);
+                    openEditItemActivity(v, lastClickedRecipe);
+                } else {
+                    Toast.makeText(HomePage.this, "Grid item 0 is not clickable yet",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -161,6 +170,16 @@ public class HomePage extends AppCompatActivity {
         items.add("Lite Bites");
         items.add("Snacks");
         items.add("Other");
+    }
+
+    public void openEditItemActivity(View view, Recipe r) {
+        Intent intent = new Intent(this.getApplicationContext(), EditItemActivity.class);
+        intent.putExtra("recipe",r);
+
+        Recipe r2 = intent.getExtras().getParcelable("recipe");
+        Log.d("parce", r2.title);
+
+        this.startActivity(intent);
     }
 
     public void openAddItemActivity(View view) {
