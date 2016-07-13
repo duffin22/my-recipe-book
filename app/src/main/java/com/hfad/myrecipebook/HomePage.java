@@ -174,6 +174,9 @@ public class HomePage extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(HomePage.this, "Item successfully passed back to collection",
                         Toast.LENGTH_SHORT).show();
+
+                Recipe r = data.getExtras().getParcelable("recipe");
+                addRecipeToList(r);
             } else {
                 Toast.makeText(HomePage.this, "Item not added to your collection",
                         Toast.LENGTH_SHORT).show();
@@ -181,7 +184,10 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
-
+    public void addRecipeToList(Recipe r) {
+        recipes.add(r);
+        adapty.notifyDataSetChanged();
+    }
 
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;

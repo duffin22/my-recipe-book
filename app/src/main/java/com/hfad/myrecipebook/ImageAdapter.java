@@ -67,7 +67,7 @@ public class ImageAdapter extends BaseAdapter {
 
 
         try {
-            imageView.setImageResource(R.drawable.burger);
+            imageView.setImageURI(recipe.get(position).getUri());
         } catch (Exception e) {
         }
 
