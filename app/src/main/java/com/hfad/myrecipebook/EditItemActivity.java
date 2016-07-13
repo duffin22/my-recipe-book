@@ -37,7 +37,7 @@ import java.util.Date;
 import java.util.Random;
 
 public class EditItemActivity extends AppCompatActivity {
-    private static final int CAMERA_REQUEST = 1888;
+    private static final int CAMERA_REQUEST = 1886;
     ImageView imageAdd;
     ArrayList<String> ingredients;
     ImageView addIngredient, tickIcon;
@@ -80,6 +80,16 @@ public class EditItemActivity extends AppCompatActivity {
         Log.d("TITLE","********"+recipe.title);
         titleEdit.setText(recipe.title);
 
+        ///set rating in display
+        ratingBar=(LinearLayout) findViewById(R.id.rating);
+        setRatingBarClickListener();
+        initializeRatingBar(recipe.rating);
+
+
+        ///set spinner to correct category
+        category= (Spinner) findViewById(R.id.categories);
+        category.setSelection(getCategoryIndex(recipe.category));
+
 
         final InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -92,9 +102,6 @@ public class EditItemActivity extends AppCompatActivity {
 
 
         final ImageView cameraButton= (ImageView) findViewById(R.id.cameraButton);
-
-        ratingBar=(LinearLayout) findViewById(R.id.rating);
-        setRatingBarClickListener();
 
 
 
@@ -173,6 +180,22 @@ public class EditItemActivity extends AppCompatActivity {
 
     }
 
+    public int getCategoryIndex(String s) {
+        if (s.equals("Breakfast")) {
+            return 1;
+        } else if (s.equals("Lunch")) {
+            return 2;
+        } else if (s.equals("Dinner")) {
+            return 3;
+        } else if (s.equals("Snacks")) {
+            return 4;
+        } else if (s.equals("Other")) {
+            return 5;
+        } else {
+            return 0;
+        }
+    }
+
     public void openCameraActivity() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, recipe.getUri());
@@ -212,6 +235,53 @@ public class EditItemActivity extends AppCompatActivity {
         retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
 
         return retVal;
+    }
+
+    public void initializeRatingBar (int i) {
+        switch (i) {
+            case 0:
+                star1.setImageResource(R.drawable.star_empty);
+                star2.setImageResource(R.drawable.star_empty);
+                star3.setImageResource(R.drawable.star_empty);
+                star4.setImageResource(R.drawable.star_empty);
+                star5.setImageResource(R.drawable.star_empty);
+                break;
+            case 1:
+                star1.setImageResource(R.drawable.star_full);
+                star2.setImageResource(R.drawable.star_empty);
+                star3.setImageResource(R.drawable.star_empty);
+                star4.setImageResource(R.drawable.star_empty);
+                star5.setImageResource(R.drawable.star_empty);
+                break;
+            case 2:
+                star1.setImageResource(R.drawable.star_full);
+                star2.setImageResource(R.drawable.star_full);
+                star3.setImageResource(R.drawable.star_empty);
+                star4.setImageResource(R.drawable.star_empty);
+                star5.setImageResource(R.drawable.star_empty);
+                break;
+            case 3:
+                star1.setImageResource(R.drawable.star_full);
+                star2.setImageResource(R.drawable.star_full);
+                star3.setImageResource(R.drawable.star_full);
+                star4.setImageResource(R.drawable.star_empty);
+                star5.setImageResource(R.drawable.star_empty);
+                break;
+            case 4:
+                star1.setImageResource(R.drawable.star_full);
+                star2.setImageResource(R.drawable.star_full);
+                star3.setImageResource(R.drawable.star_full);
+                star4.setImageResource(R.drawable.star_full);
+                star5.setImageResource(R.drawable.star_empty);
+                break;
+            case 5:
+                star1.setImageResource(R.drawable.star_full);
+                star2.setImageResource(R.drawable.star_full);
+                star3.setImageResource(R.drawable.star_full);
+                star4.setImageResource(R.drawable.star_full);
+                star5.setImageResource(R.drawable.star_full);
+
+        }
     }
 
     public void  setRatingBarClickListener () {
