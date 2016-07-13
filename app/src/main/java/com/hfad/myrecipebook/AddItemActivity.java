@@ -151,12 +151,10 @@ public class AddItemActivity extends AppCompatActivity {
 
                 recipe.rating=lastStarClicked;
 
-
-                Toast.makeText(AddItemActivity.this, "Rating is: "+recipe.rating+"\nCategory is: "+recipe.category
-                                +"\nRecipe location is: "+recipe.uri.toString()+"\nTitle is: "+recipe.title
-                                +"\nLast Ingredient is: "+recipe.ingredients.get(ingredients.size()-1),
-                        Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent();
+                intent.putExtra("recipe",recipe);
+                setResult(RESULT_OK, intent);
+                finish();
 
             }
         });

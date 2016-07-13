@@ -9,6 +9,7 @@ import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -27,7 +28,11 @@ import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
 
+    private static final int ADD_REQUEST = 1922;
     public boolean isBigButton, isSearchButton;
+    ImageAdapter adapty;
+    ArrayList<Recipe> recipes;
+    ArrayList<String> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +41,20 @@ public class HomePage extends AppCompatActivity {
 
         verifyStoragePermissions(this);
 
+        ingredients=new ArrayList<String>();
+        recipes=new ArrayList<Recipe>();
+
+        ingredients.add("stuff");
+
+        recipes.add(new Recipe("To get started add your first recipe!",0,"cat",ingredients));
+
         GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
+        adapty=new ImageAdapter(this,recipes);
+
+
+        if (gridview != null) {
+            gridview.setAdapter(adapty);
+        }
 
         final ImageView bigButton,addButton, searchButton;
         bigButton=(ImageView) findViewById(R.id.bigButton);
@@ -148,8 +165,24 @@ public class HomePage extends AppCompatActivity {
 
     public void openAddItemActivity(View view) {
         Intent intent = new Intent(this.getApplicationContext(), AddItemActivity.class);
-        this.startActivity(intent);
+        //this.startActivity(intent);
+        this.startActivityForResult(intent,ADD_REQUEST);
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADD_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(HomePage.this, "Item successfully passed back to collection",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(HomePage.this, "Item not added to your collection",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
