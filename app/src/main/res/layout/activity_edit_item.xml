@@ -17,8 +17,9 @@
         android:layout_height="56dp"
         android:id="@+id/toolbar"
         android:layout_gravity="top"
-        android:background="@color/softWhite"
-        android:orientation="horizontal">
+        android:background="@color/softerWhite"
+        android:orientation="horizontal"
+        android:elevation="4dp">
 
         <ImageView
             android:id="@+id/deleteButton"
@@ -60,9 +61,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+        <!--Frame layout containing image of recipe and ratings bar-->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
+                android:elevation="2dp"
                 >
 
             <!--rating bar linear layout-->
@@ -113,7 +116,7 @@
 
                 </LinearLayout>
 
-
+            <!--image view displaying photo of the recipe-->
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -121,7 +124,7 @@
                     android:cropToPadding="true"
                     android:id="@+id/imageAdd"
                     android:src="@drawable/camera_background"
-                    android:alpha="0.7"
+                    android:alpha="0.8"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     />
@@ -129,50 +132,68 @@
 
             </FrameLayout>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:textSize="24sp"
-                android:singleLine="false"
-                android:inputType="textCapSentences|textMultiLine"
-                android:maxLength="100"
-                android:maxLines="3"
-                android:background="@color/softBlack"
-                android:textColor="@color/white"
-                android:textColorHint="@color/softWhite"
-                android:padding="5dp"
-                android:layout_margin="3dp"
-                android:id="@+id/titleEdit"/>
 
-            <FrameLayout
+        <!--Linear layout containing title-->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-5dp">
+                android:orientation="vertical"
+                android:background="@color/colorPrimary"
+                android:layout_margin="4dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Title"
+                    android:textSize="18sp"
+                    android:padding="4dp"
+                    android:textColor="@color/softWhite"
+                    android:textAlignment="center"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:singleLine="false"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLength="60"
+                    android:maxLines="2"
+                    android:padding="4dp"
+                    android:background="@color/softWhite"
+                    android:id="@+id/titleEdit"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorPrimary"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                >
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ingredients"
-                    android:textSize="24sp"
-                    android:textColor="@color/softishWhite"
-                    android:textAlignment="center"
-                    android:background="@color/colorPrimary"
-                    android:padding="5dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginLeft="12dp"/>
+                    android:textSize="18sp"
+                    android:padding="4dp"
+                    android:textColor="@color/softWhite"
+                    android:textAlignment="center"/>
 
-                <ImageView
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:src="@drawable/add"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginRight="0dp"
-                    android:visibility="visible"
-                    android:id="@+id/addIngredientButton"/>
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ingredientList"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/softWhite">
 
-            </FrameLayout>
+                </ListView>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -202,17 +223,18 @@
             </LinearLayout>
 
 
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/ingredientList"
-                android:layout_marginRight="12dp"
-                android:layout_marginLeft="12dp">
-
-            </ListView>
 
 
 
+
+            <ImageView
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:src="@drawable/add"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginRight="0dp"
+                android:visibility="visible"
+                android:id="@+id/addIngredientButton"/>
 
             <Spinner
                 android:layout_width="match_parent"
