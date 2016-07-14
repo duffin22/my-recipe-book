@@ -17,9 +17,11 @@
         android:layout_height="56dp"
         android:id="@+id/toolbar"
         android:layout_gravity="top"
-        android:background="@color/softWhite"
+        android:background="@color/softerWhite"
         android:orientation="horizontal"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <ImageView
             android:id="@+id/deleteButton"
@@ -164,7 +166,9 @@
                     android:layout_marginRight="4dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginBottom="4dp"
-                    android:id="@+id/titleEdit"/>
+                    android:id="@+id/titleEdit"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"/>
 
             </LinearLayout>
 
@@ -233,7 +237,11 @@
                         android:hint="Add Ingredient"
                         android:id="@+id/addEditText"
                         android:windowSoftInputMode="stateAlwaysVisible"
-                        android:layout_marginLeft="4dp"/>
+                        android:layout_marginLeft="4dp"
+                        android:singleLine="true"
+                        android:maxLength="32"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"/>
 
                     <ImageView
                         android:layout_width="0dp"

@@ -17,9 +17,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -50,7 +52,7 @@ public class EditItemActivity extends AppCompatActivity {
     ArrayList<String> ingredients,savedIngredients;
     ImageView addIngredient, removeIngredient, tickIcon, homeIcon, saveIcon, deleteIcon;
     TextView ingredientsText;
-    LinearLayout addEdit, ratingBar;
+    LinearLayout addEdit, ratingBar, toolbar;
     ListView ingredientList;
     EditText addEditText, titleEdit;
     Recipe recipe;
@@ -63,11 +65,18 @@ public class EditItemActivity extends AppCompatActivity {
     FrameLayout itemsFrame;
     IngredientListAdapter adapty;
     ViewGroup.LayoutParams params;
+    boolean addButtonClicked=false;
+    InputMethodManager inputManager;
+    boolean isPromptNeeded=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
+        toolbar=(LinearLayout) findViewById(R.id.toolbar);
+
+        inputManager= (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
 
         fileDirectory=Environment.getExternalStorageDirectory().getAbsolutePath(); //  getApplicationContext().getFilesDir().getAbsolutePath();
         Log.i("TAG","FILE DIRECTORY IS "+fileDirectory);
@@ -104,6 +113,16 @@ public class EditItemActivity extends AppCompatActivity {
         titleEdit=(EditText) findViewById(R.id.titleEdit);
         Log.d("TITLE","********"+recipe.title);
         titleEdit.setText(recipe.title);
+        titleEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    Log.i("TAG","Enter pressed");
+                    toolbar.requestFocus();
+                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+                return true;
+            }
+        });
 
         ///set rating in display
         ratingBar=(LinearLayout) findViewById(R.id.rating);
@@ -125,35 +144,65 @@ public class EditItemActivity extends AppCompatActivity {
         addEdit = (LinearLayout) findViewById(R.id.addEditBar);
         addEditText=(EditText) findViewById(R.id.addEditText);
 
+        addEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)||(actionId == EditorInfo.IME_ACTION_NEXT) ) {
+                    Log.i("TAG","Enter pressed");
+                    String s = addEditText.getText().toString();
+
+                    toolbar.requestFocus();
+                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    if (s.length() > 0) {
+                        ingredients.add(s);
+                        adapty.notifyDataSetChanged();
+                        params.height = (101 * ingredients.size());
+                        addEditText.setText("");
+                    } else {
+                        Toast.makeText(EditItemActivity.this, "Ingredients cannot have zero length",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    addEdit.setVisibility(View.GONE);
+                }
+                return true;
+            }
+        });
+
         addIngredient=(ImageView) findViewById(R.id.addIngredientButton);
 
         addIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addEdit.setVisibility(View.VISIBLE);
 
                 tickIcon = (ImageView) findViewById(R.id.tickIcon);
+                if (!addButtonClicked) {
+                    addEdit.setVisibility(View.VISIBLE);
+                    tickIcon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            isPromptNeeded=true;
+                            String s = addEditText.getText().toString();
+                            addEdit.setVisibility(View.GONE);
 
-                tickIcon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String s=addEditText.getText().toString();
-                        addEdit.setVisibility(View.GONE);
+                            if (s.length() > 0) {
+                                ingredients.add(s);
+                                adapty.notifyDataSetChanged();
+                                params.height = (101 * ingredients.size());
+                                addEditText.setText("");
+                            } else {
+                                Toast.makeText(EditItemActivity.this, "Ingredients cannot have zero length",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
-                        if (s.length()>0) {
-                            ingredients.add(s);
-                            adapty.notifyDataSetChanged();
-                            params.height = (101 * ingredients.size());
-                            addEditText.setText("");
-                        } else {
-                            Toast.makeText(EditItemActivity.this, "Ingredients cannot have zero length",
-                                    Toast.LENGTH_SHORT).show();
+
                         }
-
-
-                    }
-                });
-
+                    });
+                    addButtonClicked=true;
+                } else {
+                    addEdit.setVisibility(View.GONE);
+                    addButtonClicked=false;
+                }
 
 
 
@@ -169,9 +218,19 @@ public class EditItemActivity extends AppCompatActivity {
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                AlertDialog diaBox = AskOptionHome();
-                diaBox.show();
+                if (isPromptNeeded) {
+                    AlertDialog diaBox = AskOptionHome();
+                    diaBox.show();
+                } else if ((recipe.title!=titleEdit.getText().toString())) {
+                    AlertDialog diaBox = AskOptionHome();
+                    diaBox.show();
+                } else {
+                    recipe.ingredients=savedIngredients;
+                    Intent intent = new Intent();
+                    intent.putExtra("recipe",recipe);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
 
             }
         });
@@ -206,10 +265,13 @@ public class EditItemActivity extends AppCompatActivity {
         removeIngredient.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isPromptNeeded=true;
+                addEdit.setVisibility(View.GONE);
                 ingredientList.setEnabled(true);
-                ingredientsText.setText("SELECT INGREDIENT TO DELETE");
+                ingredientsText.setText("DELETE INGREDIENT");
                 ingredientsText.setTextColor(Color.parseColor("#fafafa"));
-                addIngredient.setVisibility(View.INVISIBLE);
+                addIngredient.setImageResource(R.drawable.ic_close);
+                addIngredient.setEnabled(false);
                 removeIngredient.setVisibility(View.INVISIBLE);
                 itemsFrame.setBackgroundColor(Color.parseColor("#ff0000"));
                 makeIngredientsClickable();
@@ -230,6 +292,7 @@ public class EditItemActivity extends AppCompatActivity {
         recipe.title=titleEdit.getText().toString();
         recipe.rating=lastStarClicked;
         savedIngredients=recipe.ingredients;
+        isPromptNeeded=false;
 
     }
 
@@ -319,7 +382,6 @@ public class EditItemActivity extends AppCompatActivity {
                         adapty.notifyDataSetChanged();
                         params.height = (101 * ingredients.size());
 
-                        ///move this stuff to onClick listener for red bar
 
                     }
                 })
@@ -351,9 +413,11 @@ public class EditItemActivity extends AppCompatActivity {
     public void makeTitleClickable() {
         itemsFrame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                isPromptNeeded=true;
                 ingredientsText.setText("INGREDIENTS");
                 ingredientsText.setTextColor(Color.parseColor("#311B92"));
-                addIngredient.setVisibility(View.VISIBLE);
+                addIngredient.setImageResource(R.drawable.ic_add);
+                addIngredient.setEnabled(true);
                 removeIngredient.setVisibility(View.VISIBLE);
                 itemsFrame.setBackgroundColor(Color.parseColor("#B39DDB"));
                 makeIngredientsUnclickable();
@@ -480,6 +544,7 @@ public class EditItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
+                isPromptNeeded=true;
 
             }
         });
@@ -502,6 +567,7 @@ public class EditItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
+                isPromptNeeded=true;
             }
         });
 
@@ -523,6 +589,7 @@ public class EditItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
+                isPromptNeeded=true;
             }
         });
 
@@ -544,6 +611,7 @@ public class EditItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
+                isPromptNeeded=true;
             }
         });
 
@@ -565,13 +633,12 @@ public class EditItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
+                isPromptNeeded=true;
             }
         });
 
 
 
     }
-
-
 
 }
