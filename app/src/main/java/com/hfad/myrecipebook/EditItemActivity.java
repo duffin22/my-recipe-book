@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -20,15 +21,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,15 +48,21 @@ public class EditItemActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1886, RESULT_DELETE=16;
     ImageView imageAdd;
     ArrayList<String> ingredients,savedIngredients;
-    ImageView addIngredient, tickIcon, homeIcon, saveIcon, deleteIcon;
+    ImageView addIngredient, removeIngredient, tickIcon, homeIcon, saveIcon, deleteIcon;
+    TextView ingredientsText;
     LinearLayout addEdit, ratingBar;
+    ListView ingredientList;
     EditText addEditText, titleEdit;
     Recipe recipe;
     ImageView star1,star2,star3,star4,star5;
     Button confirm;
-    int lastStarClicked,index;
+    int lastStarClicked,index, lastClickedIngredientIndex;
+    String lastClickedIngredient;
     Spinner category;
     static String fileDirectory;
+    FrameLayout itemsFrame;
+    IngredientListAdapter adapty;
+    ViewGroup.LayoutParams params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +80,11 @@ public class EditItemActivity extends AppCompatActivity {
         //****** INITIALIZE ALL ELEMENTS OF LAYOUT   ***************************************
         ///set ingredients in display
         ingredients=recipe.ingredients;
-        ListView ingredientList = (ListView) findViewById(R.id.ingredientList);
-        final IngredientListAdapter adapty=new IngredientListAdapter(this,ingredients);
+        ingredientList = (ListView) findViewById(R.id.ingredientList);
+        adapty=new IngredientListAdapter(this,ingredients);
         ingredientList.setAdapter(adapty);
-        final ViewGroup.LayoutParams params = ingredientList.getLayoutParams();
+        makeIngredientsUnclickable();
+        params = ingredientList.getLayoutParams();
         params.height = (101*ingredients.size());
 
         savedIngredients=new ArrayList<>();
@@ -111,16 +124,6 @@ public class EditItemActivity extends AppCompatActivity {
 
         addEdit = (LinearLayout) findViewById(R.id.addEditBar);
         addEditText=(EditText) findViewById(R.id.addEditText);
-
-//        final ImageView cameraButton= (ImageView) findViewById(R.id.cameraButton);
-//
-//        cameraButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("Pointer","Entered onClick creator for camera button");
-//                openCameraActivity(recipe);
-//            }
-//        });
 
         addIngredient=(ImageView) findViewById(R.id.addIngredientButton);
 
@@ -197,6 +200,27 @@ public class EditItemActivity extends AppCompatActivity {
         });
 
 
+        removeIngredient=(ImageView) findViewById(R.id.minusIngredientButton);
+        ingredientsText=(TextView) findViewById(R.id.ingredientsText);
+        itemsFrame=(FrameLayout) findViewById(R.id.itemsFrame);
+        removeIngredient.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ingredientList.setEnabled(true);
+                ingredientsText.setText("SELECT INGREDIENT TO DELETE");
+                ingredientsText.setTextColor(Color.parseColor("#fafafa"));
+                addIngredient.setVisibility(View.INVISIBLE);
+                removeIngredient.setVisibility(View.INVISIBLE);
+                itemsFrame.setBackgroundColor(Color.parseColor("#ff0000"));
+                makeIngredientsClickable();
+                makeTitleClickable();
+
+            }
+        });
+
+
+
+
 
     }
 
@@ -249,7 +273,7 @@ public class EditItemActivity extends AppCompatActivity {
                 .setMessage("Are you sure you want to delete this recipe? This action cannot be undone.")
                 .setIcon(R.drawable.ic_delete)
 
-                .setPositiveButton("Canel", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.dismiss();
@@ -271,6 +295,70 @@ public class EditItemActivity extends AppCompatActivity {
                 .create();
         return myQuittingDialogBox;
 
+    }
+
+    private AlertDialog AskOptionIngredient(String s) {
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Delete Ingredient")
+                .setMessage("Are you sure you want to delete '"+s.toUpperCase()+"'")
+                .setIcon(R.drawable.ic_delete)
+
+                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+
+                })
+
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        ingredients.remove(lastClickedIngredientIndex);
+                        adapty.notifyDataSetChanged();
+                        params.height = (101 * ingredients.size());
+
+                        ///move this stuff to onClick listener for red bar
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+
+    }
+
+    public void makeIngredientsClickable() {
+        ingredientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                try {
+                    lastClickedIngredientIndex = position;
+                    lastClickedIngredient=ingredients.get(position);
+                    AlertDialog diaBox = AskOptionIngredient(lastClickedIngredient);
+                    diaBox.show();
+                } catch (Exception e) {
+                    Toast.makeText(EditItemActivity.this, "Grid item is not clickable yet",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void makeIngredientsUnclickable() {
+       ingredientList.setEnabled(false);
+    }
+
+    public void makeTitleClickable() {
+        itemsFrame.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                ingredientsText.setText("INGREDIENTS");
+                ingredientsText.setTextColor(Color.parseColor("#311B92"));
+                addIngredient.setVisibility(View.VISIBLE);
+                removeIngredient.setVisibility(View.VISIBLE);
+                itemsFrame.setBackgroundColor(Color.parseColor("#B39DDB"));
+                makeIngredientsUnclickable();
+            }
+        });
     }
 
     @Override
@@ -392,8 +480,6 @@ public class EditItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
-                Toast.makeText(EditItemActivity.this, "Star 1 has been pressed",
-                        Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -416,8 +502,6 @@ public class EditItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
-                Toast.makeText(EditItemActivity.this, "Star 2 has been pressed",
-                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -439,8 +523,6 @@ public class EditItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
-                Toast.makeText(EditItemActivity.this, "Star 3 has been pressed",
-                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -462,8 +544,6 @@ public class EditItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
-                Toast.makeText(EditItemActivity.this, "Star 4 has been pressed",
-                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -485,8 +565,6 @@ public class EditItemActivity extends AppCompatActivity {
                     star5.setImageResource(R.drawable.star_empty);
                     lastStarClicked=0;
                 }
-                Toast.makeText(EditItemActivity.this, "Star 5 has been pressed",
-                        Toast.LENGTH_SHORT).show();
             }
         });
 

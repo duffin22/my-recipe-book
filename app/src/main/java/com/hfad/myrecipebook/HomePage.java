@@ -167,7 +167,6 @@ public class HomePage extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 try {
                     lastClickedRecipe = recipes.get(position);
-                    v.setAlpha(1.0f);
                     openEditItemActivity(v, lastClickedRecipe, position);
                 } catch (Exception e) {
                     Toast.makeText(HomePage.this, "Grid item is not clickable yet",

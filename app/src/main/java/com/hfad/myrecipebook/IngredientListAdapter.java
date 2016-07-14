@@ -62,19 +62,6 @@ public class IngredientListAdapter extends BaseAdapter {
 
         Log.d("Pointer","getView used at position " +position);
 
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Log.i("Adaptor", "Clicked " + position);
-            }
-
-//                Intent intent = new Intent(context.getApplicationContext(), InputActivity.class);
-//
-//                context.startActivity(intent);
-
-        });
-
         if (position==(listItems.size()-1)) {
             vG.setMinimumHeight(23*position);
         }
