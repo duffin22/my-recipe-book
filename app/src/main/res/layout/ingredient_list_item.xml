@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/ingredientItem"
     android:text="123abc"
-    android:textColor="#303030"
+    android:textColor="@color/editPageText"
     android:textSize="18dp"
     android:textAllCaps="true"
     android:paddingLeft="10dp"

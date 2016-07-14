@@ -17,4 +17,6 @@
     <color name="softWhite">#88fafafa</color>
     <color name="softerWhite">#44fafafa</color>
 
+    <color name="editPageText">#cc303030</color>
+
 </resources>

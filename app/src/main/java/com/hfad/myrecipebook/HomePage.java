@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
 
-    private static final int ADD_REQUEST = 1922, EDIT_REQUEST=2044;
+    private static final int ADD_REQUEST = 1922, EDIT_REQUEST=2044, RESULT_DELETE=16;
     public boolean isBigButton, isSearchButton;
     ImageAdapter adapty;
     Recipe lastClickedRecipe;
@@ -168,7 +168,7 @@ public class HomePage extends AppCompatActivity {
                 try {
                     lastClickedRecipe = recipes.get(position);
                     v.setAlpha(1.0f);
-                    openEditItemActivity(v, lastClickedRecipe);
+                    openEditItemActivity(v, lastClickedRecipe, position);
                 } catch (Exception e) {
                     Toast.makeText(HomePage.this, "Grid item is not clickable yet",
                             Toast.LENGTH_SHORT).show();
@@ -186,9 +186,10 @@ public class HomePage extends AppCompatActivity {
         items.add("Other");
     }
 
-    public void openEditItemActivity(View view, Recipe r) {
+    public void openEditItemActivity(View view, Recipe r, int position) {
         Intent intent = new Intent(this.getApplicationContext(), EditItemActivity.class);
         intent.putExtra("recipe",r);
+        intent.putExtra("index",position);
 
         Recipe r2 = intent.getExtras().getParcelable("recipe");
         Log.d("parce", r2.title);
@@ -220,7 +221,13 @@ public class HomePage extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
 
                 Recipe r = data.getExtras().getParcelable("recipe");
-                replaceRecipeInList(r,recipes.indexOf(lastClickedRecipe));
+                replaceRecipeInList(r, recipes.indexOf(lastClickedRecipe));
+            } else if (resultCode==RESULT_DELETE) {
+                int i=data.getIntExtra("index",-1);
+                if (i>=0) {
+                    recipes.remove(i);
+                    adapty.notifyDataSetChanged();
+                }
             } else {
                 Toast.makeText(HomePage.this, "Item not added to your collection",
                         Toast.LENGTH_SHORT).show();
@@ -237,34 +244,6 @@ public class HomePage extends AppCompatActivity {
         recipes.set(i,r);
         adapty.notifyDataSetChanged();
     }
-
-
-
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        saveRecipe(Recipe.getInstance());
-//
-//
-//
-//    }
-//
-//    // CardHolder contains all information needed to restart the application
-//    public void saveRecipe(CardHolder cardHolder){
-//        try
-//        {
-//            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile));
-//            oos.writeObject(cardHolder);
-//            oos.flush();
-//            oos.close();
-//            Log.d("Serial Write Success : ", "true");
-//        }
-//        catch(Exception ex)
-//        {
-//            Log.d("Serial Write Error : ", "" + ex.getMessage());
-//            ex.printStackTrace();
-//        }
-//    }
 
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;

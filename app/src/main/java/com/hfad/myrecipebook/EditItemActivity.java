@@ -39,16 +39,16 @@ import java.util.Date;
 import java.util.Random;
 
 public class EditItemActivity extends AppCompatActivity {
-    private static final int CAMERA_REQUEST = 1886;
+    private static final int CAMERA_REQUEST = 1886, RESULT_DELETE=16;
     ImageView imageAdd;
     ArrayList<String> ingredients,savedIngredients;
-    ImageView addIngredient, tickIcon, homeIcon;
+    ImageView addIngredient, tickIcon, homeIcon, saveIcon, deleteIcon;
     LinearLayout addEdit, ratingBar;
     EditText addEditText, titleEdit;
     Recipe recipe;
     ImageView star1,star2,star3,star4,star5;
     Button confirm;
-    int lastStarClicked;
+    int lastStarClicked,index;
     Spinner category;
     static String fileDirectory;
 
@@ -62,17 +62,24 @@ public class EditItemActivity extends AppCompatActivity {
 
         ///****get input recipe based on the extra that was put in
         recipe = getIntent().getParcelableExtra("recipe");
+        index=getIntent().getIntExtra("index",-1);
 
         //**********************************************************************************
         //****** INITIALIZE ALL ELEMENTS OF LAYOUT   ***************************************
         ///set ingredients in display
         ingredients=recipe.ingredients;
-        savedIngredients=ingredients;
         ListView ingredientList = (ListView) findViewById(R.id.ingredientList);
         final IngredientListAdapter adapty=new IngredientListAdapter(this,ingredients);
         ingredientList.setAdapter(adapty);
         final ViewGroup.LayoutParams params = ingredientList.getLayoutParams();
         params.height = (101*ingredients.size());
+
+        savedIngredients=new ArrayList<>();
+        if (ingredients.size()>0) {
+            for (int i=0;i<ingredients.size();i++) {
+                savedIngredients.add(ingredients.get(i));
+            }
+        }
 
 
         ///set image in display
@@ -153,43 +160,56 @@ public class EditItemActivity extends AppCompatActivity {
 
         });
 
-        confirm=(Button) findViewById(R.id.confirm);
-        confirm.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-                //get a reference to the spinner
-                category = (Spinner) findViewById(R.id.categories);
-                String selectedValue=String.valueOf(category.getSelectedItem());
-
-                ////add final values to the recipe item
-                recipe.category=selectedValue;
-                titleEdit=(EditText) findViewById(R.id.titleEdit);
-                recipe.title=titleEdit.getText().toString();
-
-
-                recipe.rating=lastStarClicked;
-
-            }
-        });
-
-
-        homeIcon=(ImageView) findViewById(R.id.homeButton) ;
+        homeIcon=(ImageView) findViewById(R.id.homeButton);
 
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                AlertDialog diaBox = AskOption();
+                AlertDialog diaBox = AskOptionHome();
+                diaBox.show();
+
+            }
+        });
+
+        saveIcon=(ImageView) findViewById(R.id.saveButton);
+
+        saveIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSave();
+                Toast.makeText(EditItemActivity.this, "Recipe updated. Press the home button to return to your home page.",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        deleteIcon=(ImageView) findViewById(R.id.deleteButton);
+
+        deleteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog diaBox = AskOptionDelete();
                 diaBox.show();
 
             }
         });
 
 
+
     }
 
-    private AlertDialog AskOption() {
+    public void onSave() {
+        String selectedValue=String.valueOf(category.getSelectedItem());
+        recipe.category=selectedValue;
+        recipe.title=titleEdit.getText().toString();
+        recipe.rating=lastStarClicked;
+        savedIngredients=recipe.ingredients;
+
+    }
+
+    private AlertDialog AskOptionHome() {
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                 //set message, title, and icon
                 .setTitle("Exit Recipe Page")
@@ -220,6 +240,43 @@ public class EditItemActivity extends AppCompatActivity {
                 .create();
         return myQuittingDialogBox;
 
+    }
+
+    private AlertDialog AskOptionDelete() {
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Are you sure you want to delete this recipe? This action cannot be undone.")
+                .setIcon(R.drawable.ic_delete)
+
+                .setPositiveButton("Canel", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+
+                })
+
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        Intent intent = new Intent();
+                        intent.putExtra("index",index);
+                        setResult(RESULT_DELETE, intent);
+                        finish();
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog diaBox = AskOptionHome();
+        diaBox.show();
     }
 
     public int getCategoryIndex(String s) {
