@@ -31,11 +31,11 @@
             android:layout_marginLeft="8dp"/>
 
         <ImageView
-            android:id="@+id/editButton"
+            android:id="@+id/saveButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:padding="8dp"
-            android:src="@drawable/ic_edit"
+            android:src="@drawable/ic_save"
             android:layout_gravity="center_vertical"/>
         <ImageView
             android:layout_width="200dp"
@@ -174,6 +174,7 @@
                 android:background="@color/colorPrimary"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
+                android:layout_marginBottom="4dp"
                 >
 
                 <FrameLayout
@@ -227,7 +228,7 @@
                         android:layout_weight="1"
                         android:src="@drawable/ic_done"
                         android:padding="4dp"
-                        android:layout_marginRight="12dp"
+                        android:layout_marginRight="3dp"
                         android:id="@+id/tickIcon"/>
                 </LinearLayout>
 
@@ -249,14 +250,14 @@
 
 
 
-            <ImageView
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:src="@drawable/add"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginRight="0dp"
-                android:visibility="visible"
-                android:id="@+id/addIngredientButto"/>
+            <!--<ImageView-->
+                <!--android:layout_width="56dp"-->
+                <!--android:layout_height="56dp"-->
+                <!--android:src="@drawable/add"-->
+                <!--android:layout_gravity="center_vertical|end"-->
+                <!--android:layout_marginRight="0dp"-->
+                <!--android:visibility="gone"-->
+                <!--android:id="@+id/addIngredientButto"/>-->
 
             <Spinner
                 android:layout_width="match_parent"

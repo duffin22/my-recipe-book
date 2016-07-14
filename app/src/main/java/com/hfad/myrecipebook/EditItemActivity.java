@@ -1,6 +1,7 @@
 package com.hfad.myrecipebook;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,8 +41,8 @@ import java.util.Random;
 public class EditItemActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1886;
     ImageView imageAdd;
-    ArrayList<String> ingredients;
-    ImageView addIngredient, tickIcon;
+    ArrayList<String> ingredients,savedIngredients;
+    ImageView addIngredient, tickIcon, homeIcon;
     LinearLayout addEdit, ratingBar;
     EditText addEditText, titleEdit;
     Recipe recipe;
@@ -65,6 +67,7 @@ public class EditItemActivity extends AppCompatActivity {
         //****** INITIALIZE ALL ELEMENTS OF LAYOUT   ***************************************
         ///set ingredients in display
         ingredients=recipe.ingredients;
+        savedIngredients=ingredients;
         ListView ingredientList = (ListView) findViewById(R.id.ingredientList);
         final IngredientListAdapter adapty=new IngredientListAdapter(this,ingredients);
         ingredientList.setAdapter(adapty);
@@ -118,10 +121,8 @@ public class EditItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addEdit.setVisibility(View.VISIBLE);
-               // addEditText.requestFocus();
 
                 tickIcon = (ImageView) findViewById(R.id.tickIcon);
-
 
                 tickIcon.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -133,7 +134,6 @@ public class EditItemActivity extends AppCompatActivity {
                             ingredients.add(s);
                             adapty.notifyDataSetChanged();
                             params.height = (101 * ingredients.size());
-                            //inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                             addEditText.setText("");
                         } else {
                             Toast.makeText(EditItemActivity.this, "Ingredients cannot have zero length",
@@ -167,16 +167,58 @@ public class EditItemActivity extends AppCompatActivity {
                 titleEdit=(EditText) findViewById(R.id.titleEdit);
                 recipe.title=titleEdit.getText().toString();
 
-                recipe.rating=lastStarClicked;
 
-                Intent intent = new Intent();
-                intent.putExtra("recipe",recipe);
-                setResult(RESULT_OK, intent);
-                finish();
+                recipe.rating=lastStarClicked;
 
             }
         });
 
+
+        homeIcon=(ImageView) findViewById(R.id.homeButton) ;
+
+        homeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog diaBox = AskOption();
+                diaBox.show();
+
+            }
+        });
+
+
+    }
+
+    private AlertDialog AskOption() {
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Exit Recipe Page")
+                .setMessage("Any unsaved changes will be lost. Would you like to continue?")
+                .setIcon(R.drawable.ic_home)
+
+                .setPositiveButton("No", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        dialog.dismiss();
+                    }
+
+                })
+
+                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        recipe.ingredients=savedIngredients;
+                        Intent intent = new Intent();
+                        intent.putExtra("recipe",recipe);
+                        setResult(RESULT_OK, intent);
+                        finish();
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
 
     }
 
@@ -195,8 +237,6 @@ public class EditItemActivity extends AppCompatActivity {
             return 0;
         }
     }
-
-
 
     public void saveFileToImageView(String filePath) {
         File imgFile = new  File(filePath);
