@@ -187,7 +187,6 @@ public class AddItemActivity extends AppCompatActivity {
 
             Bitmap myBitmap = rotateImage(BitmapFactory.decodeFile(imgFile.getAbsolutePath()),90);
 
-
             imageAdd.setImageBitmap(myBitmap);
 
         } else {

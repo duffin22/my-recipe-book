@@ -1,6 +1,9 @@
 package com.hfad.myrecipebook;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +26,7 @@ public class ImageAdapter extends BaseAdapter {
     private Context mContext;
     private final LayoutInflater inflater;
     ArrayList<Recipe> recipe;
+    ImageView imageView;
 
     public ImageAdapter(Context c, ArrayList<Recipe> recipes) {
         mContext = c;
@@ -50,7 +55,7 @@ public class ImageAdapter extends BaseAdapter {
         Log.d("Position: " , "" + position);
 
         FrameLayout frameLayout;
-        ImageView imageView, currentStar;
+        ImageView currentStar;
         TextView textView;
         LinearLayout ratings;
 
@@ -67,7 +72,8 @@ public class ImageAdapter extends BaseAdapter {
 
 
         try {
-            imageView.setImageURI(recipe.get(position).getUri());
+//            imageView.setImageURI(recipe.get(position).getUri());
+            saveFileToImageView(recipe.get(position).getUri().getPath());
         } catch (Exception e) {
         }
 
@@ -96,6 +102,29 @@ public class ImageAdapter extends BaseAdapter {
         return frameLayout;
     }
 
+    public void saveFileToImageView(String filePath) {
+        File imgFile = new  File(filePath);
+
+        if(imgFile.exists()){
+
+            Bitmap myBitmap = rotateImage(BitmapFactory.decodeFile(imgFile.getAbsolutePath()),90);
+
+            imageView.setImageBitmap(myBitmap);
+
+        } else {
+            Log.i("STUFF","Image doesn't exist");
+        }
+    }
+
+    public static Bitmap rotateImage(Bitmap source, float angle) {
+        Bitmap retVal;
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        retVal = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+
+        return retVal;
+    }
 
 
 

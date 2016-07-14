@@ -25,16 +25,20 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
 
-    private static final int ADD_REQUEST = 1922;
+    private static final int ADD_REQUEST = 1922, EDIT_REQUEST=2044;
     public boolean isBigButton, isSearchButton;
     ImageAdapter adapty;
     Recipe lastClickedRecipe;
     ArrayList<Recipe> recipes;
     ArrayList<String> ingredients;
+    File saveFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +51,20 @@ public class HomePage extends AppCompatActivity {
         recipes=new ArrayList<Recipe>();
 
         ingredients.add("stuff");
+        ingredients.add("other stuff");
+        ingredients.add("gravy");
+        ingredients.add("100ml root vegetables");
+        ingredients.add("pineapple slaw");
+        ingredients.add("celeriac");
+        ingredients.add("cilantro");
+        ingredients.add("bacon");
+        ingredients.add("anchovies");
 
-        recipes.add(new Recipe("To get started add your first recipe!",0,"cat",ingredients));
+        try {
+            recipes.add(new Recipe("Fortune Cookie", 0, "Snack", ingredients, 497312358));
+        } catch (Exception e) {
+
+        }
 
         GridView gridview = (GridView) findViewById(R.id.gridview);
         adapty=new ImageAdapter(this,recipes);
@@ -149,14 +165,12 @@ public class HomePage extends AppCompatActivity {
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-
-
-                if (position!=0) {
+                try {
                     lastClickedRecipe = recipes.get(position);
+                    v.setAlpha(1.0f);
                     openEditItemActivity(v, lastClickedRecipe);
-                } else {
-                    Toast.makeText(HomePage.this, "Grid item 0 is not clickable yet",
+                } catch (Exception e) {
+                    Toast.makeText(HomePage.this, "Grid item is not clickable yet",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -179,7 +193,7 @@ public class HomePage extends AppCompatActivity {
         Recipe r2 = intent.getExtras().getParcelable("recipe");
         Log.d("parce", r2.title);
 
-        this.startActivity(intent);
+        this.startActivityForResult(intent,EDIT_REQUEST);
     }
 
     public void openAddItemActivity(View view) {
@@ -200,6 +214,17 @@ public class HomePage extends AppCompatActivity {
                 Toast.makeText(HomePage.this, "Item not added to your collection",
                         Toast.LENGTH_SHORT).show();
             }
+        } else if (requestCode == EDIT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(HomePage.this, "Item successfully passed back to collection",
+                        Toast.LENGTH_SHORT).show();
+
+                Recipe r = data.getExtras().getParcelable("recipe");
+                replaceRecipeInList(r,recipes.indexOf(lastClickedRecipe));
+            } else {
+                Toast.makeText(HomePage.this, "Item not added to your collection",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -208,6 +233,39 @@ public class HomePage extends AppCompatActivity {
         adapty.notifyDataSetChanged();
     }
 
+    public void replaceRecipeInList(Recipe r, int i) {
+        recipes.set(i,r);
+        adapty.notifyDataSetChanged();
+    }
+
+
+
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        saveRecipe(Recipe.getInstance());
+//
+//
+//
+//    }
+//
+//    // CardHolder contains all information needed to restart the application
+//    public void saveRecipe(CardHolder cardHolder){
+//        try
+//        {
+//            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile));
+//            oos.writeObject(cardHolder);
+//            oos.flush();
+//            oos.close();
+//            Log.d("Serial Write Success : ", "true");
+//        }
+//        catch(Exception ex)
+//        {
+//            Log.d("Serial Write Error : ", "" + ex.getMessage());
+//            ex.printStackTrace();
+//        }
+//    }
+
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -215,13 +273,6 @@ public class HomePage extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
-    /**
-     * Checks if the app has permission to write to device storage
-     *
-     * If the app does not has permission then the user will be prompted to grant permissions
-     *
-     * @param activity
-     */
     public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);

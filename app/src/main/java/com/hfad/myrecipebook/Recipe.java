@@ -36,6 +36,15 @@ public class Recipe implements Parcelable {
         this.uri =Uri.parse(in.readString());
         this.rando=in.readInt();
     }
+//recipe constructor for default items
+    public Recipe(String title, int rating, String category, ArrayList<String> ingredients, int number) {
+        this.title=title;
+        this.category=category;
+        this.rating=rating;
+        this.ingredients=ingredients;
+        this.rando= number;
+        this.uri=Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/DCIM/","Default-title" +this.rando+".png"));
+    }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Recipe createFromParcel(Parcel in) {

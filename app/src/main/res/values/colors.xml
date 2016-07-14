@@ -10,9 +10,10 @@
     <color name="colorAccentSoft">#88ffff00</color>
     <color name="colorPrimaryDarkSoft">#88311B92</color>
     <color name="softBlack">#88303030</color>
+    <color name="softerBlack">#44303030</color>
     <color name="darkSoftWhite">#bbfafafa</color>
     <color name="softishWhite">#bbfafafa</color>
     <color name="softWhite">#88fafafa</color>
-    <color name="softerWhite">#33fafafa</color>
+    <color name="softerWhite">#44fafafa</color>
 
 </resources>

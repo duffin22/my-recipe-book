@@ -59,7 +59,7 @@ public class EditItemActivity extends AppCompatActivity {
         Log.i("TAG","FILE DIRECTORY IS "+fileDirectory);
 
         ///****get input recipe based on the extra that was put in
-        Recipe recipe = getIntent().getParcelableExtra("recipe");
+        recipe = getIntent().getParcelableExtra("recipe");
 
         //**********************************************************************************
         //****** INITIALIZE ALL ELEMENTS OF LAYOUT   ***************************************
@@ -74,7 +74,7 @@ public class EditItemActivity extends AppCompatActivity {
 
         ///set image in display
         imageAdd=(ImageView) findViewById(R.id.imageAdd);
-        imageAdd.setImageURI(recipe.getUri());
+        saveFileToImageView(recipe.getUri().getPath());
 
 
         ///set title in display
@@ -103,12 +103,12 @@ public class EditItemActivity extends AppCompatActivity {
         addEditText=(EditText) findViewById(R.id.addEditText);
 
 //        final ImageView cameraButton= (ImageView) findViewById(R.id.cameraButton);
-
+//
 //        cameraButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                Log.d("Pointer","Entered onClick creator for camera button");
-//                openCameraActivity();
+//                openCameraActivity(recipe);
 //            }
 //        });
 
@@ -153,29 +153,29 @@ public class EditItemActivity extends AppCompatActivity {
 
         });
 
-//        confirm=(Button) findViewById(R.id.confirm);
-//        confirm.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                //get a reference to the spinner
-//                category = (Spinner) findViewById(R.id.categories);
-//                String selectedValue=String.valueOf(category.getSelectedItem());
-//
-//                ////add final values to the recipe item
-//                recipe.category=selectedValue;
-//                titleEdit=(EditText) findViewById(R.id.titleEdit);
-//                recipe.title=titleEdit.getText().toString();
-//
-//                recipe.rating=lastStarClicked;
-//
-//                Intent intent = new Intent();
-//                intent.putExtra("recipe",recipe);
-//                setResult(RESULT_OK, intent);
-//                finish();
-//
-//            }
-//        });
+        confirm=(Button) findViewById(R.id.confirm);
+        confirm.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                //get a reference to the spinner
+                category = (Spinner) findViewById(R.id.categories);
+                String selectedValue=String.valueOf(category.getSelectedItem());
+
+                ////add final values to the recipe item
+                recipe.category=selectedValue;
+                titleEdit=(EditText) findViewById(R.id.titleEdit);
+                recipe.title=titleEdit.getText().toString();
+
+                recipe.rating=lastStarClicked;
+
+                Intent intent = new Intent();
+                intent.putExtra("recipe",recipe);
+                setResult(RESULT_OK, intent);
+                finish();
+
+            }
+        });
 
 
     }
@@ -196,22 +196,7 @@ public class EditItemActivity extends AppCompatActivity {
         }
     }
 
-    public void openCameraActivity() {
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, recipe.getUri());
-        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-        Log.d("Pointer","Entered Camera Activity *******");
-    }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
-            if (data==null) {
-                Log.i("LOG","returned null data ******************");
-                saveFileToImageView(recipe.getUri().getPath());
-            }
-        }
-
-    }
 
     public void saveFileToImageView(String filePath) {
         File imgFile = new  File(filePath);

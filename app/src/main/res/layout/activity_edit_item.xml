@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,29 +10,50 @@
     tools:context="com.hfad.myrecipebook.AddItemActivity"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:orientation="horizontal"
+
+<!--toolbar layout-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:elevation="5dp"
-        android:background="@color/colorPrimary">
+        android:layout_height="56dp"
+        android:id="@+id/toolbar"
+        android:layout_gravity="top"
+        android:background="@color/softWhite"
+        android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/camera"
-            android:layout_gravity="center"
-            android:elevation="10dp"
-            android:id="@+id/cameraButton"/>
+            android:id="@+id/deleteButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_delete"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"/>
 
-    </FrameLayout>
+        <ImageView
+            android:id="@+id/editButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_edit"
+            android:layout_gravity="center_vertical"/>
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="match_parent"/>
+        
+        <ImageView
+            android:id="@+id/homeButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_home"
+            android:layout_gravity="center_vertical"/>
+        
+    </LinearLayout>
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,21 +63,16 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
-                android:layout_gravity="center"
                 >
 
+            <!--rating bar linear layout-->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_width="180dp"
+                    android:layout_height="48dp"
                     android:id="@+id/rating"
-                    android:text="7/10"
-                    android:layout_gravity="top|end"
-                    android:background="@color/softerWhite"
-                    android:textColor="@color/white"
-                    android:elevation="3dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="40dp"
-                    android:paddingLeft="40dp"
+                    android:layout_gravity="bottom|end"
+                    android:background="@android:color/transparent"
+                    android:elevation="1dp"
                     >
 
                     <ImageView
@@ -105,38 +121,29 @@
                     android:cropToPadding="true"
                     android:id="@+id/imageAdd"
                     android:src="@drawable/camera_background"
-                    android:padding="3dp"
-                    android:elevation="2dp"
                     android:alpha="0.7"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     />
 
-                <LinearLayout
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:layout_width="0px"
-                    android:layout_height="0px"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:textSize="24sp"
-                    android:singleLine="false"
-                    android:inputType="textCapSentences|textMultiLine"
-                    android:maxLength="100"
-                    android:maxLines="3"
-                    android:elevation="3dp"
-                    android:background="@color/softBlack"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/softWhite"
-                    android:padding="5dp"
-                    android:layout_margin="3dp"
-                    android:id="@+id/titleEdit"/>
-
 
             </FrameLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:textSize="24sp"
+                android:singleLine="false"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLength="100"
+                android:maxLines="3"
+                android:background="@color/softBlack"
+                android:textColor="@color/white"
+                android:textColorHint="@color/softWhite"
+                android:padding="5dp"
+                android:layout_margin="3dp"
+                android:id="@+id/titleEdit"/>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -161,7 +168,6 @@
                     android:layout_height="56dp"
                     android:src="@drawable/add"
                     android:layout_gravity="center_vertical|end"
-                    android:elevation="10dp"
                     android:layout_marginRight="0dp"
                     android:visibility="visible"
                     android:id="@+id/addIngredientButton"/>
@@ -172,7 +178,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:elevation="2dp"
                 android:layout_gravity="bottom"
                 android:visibility="gone"
                 android:id="@+id/addEditBar">
@@ -230,5 +235,5 @@
     </ScrollView>
 
 
-</LinearLayout>
+</FrameLayout>
 
