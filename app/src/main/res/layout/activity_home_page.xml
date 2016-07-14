@@ -11,26 +11,15 @@
     tools:context="com.hfad.myrecipebook.HomePage"
     android:orientation="vertical">
 
-    <!--<ScrollView-->
-        <!--android:layout_width="300dp"-->
-        <!--android:layout_height="400dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:elevation="10dp">-->
-        <!---->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
-
-            <!--<ImageView-->
-                <!--android:layout_width="250dp"-->
-                <!--android:layout_height="250dp"-->
-                <!--android:src="@drawable/burger"-->
-                <!--android:elevation="10dp"-->
-                <!--android:layout_marginTop="25dp" -->
-                <!--android:layout_gravity="right"/>-->
-        <!--</LinearLayout>-->
-
-    <!--</ScrollView>-->
+    <ImageView
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@drawable/add"
+        android:layout_gravity="center_vertical|end"
+        android:elevation="5dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/addButton"
+        android:layout_marginBottom="64dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,142 +42,27 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="4">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:elevation="2dp"
-                    android:layout_gravity="bottom"
-                    android:visibility="invisible"
-                    android:id="@+id/searchBar">
-
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="9"
-                        android:hint="Search"
-                        android:textColorHint="@color/white"
-                        android:textColor="@color/colorAccent"
-                        android:backgroundTint="@color/white"
-                        android:id="@+id/searchText"/>
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/ic_search"
-                        android:padding="4dp"
-                        android:id="@+id/searchIcon"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:src="@drawable/add"
-                    android:layout_gravity="center_vertical|end"
-                    android:elevation="10dp"
-                    android:layout_marginRight="50dp"
-                    android:visibility="invisible"
-                    android:id="@+id/addButton"/>
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/circle_icon"
+                    android:layout_marginBottom="40dp"
                     android:layout_gravity="center"
-                    android:elevation="10dp"
+                    android:elevation="5dp"
                     android:id="@+id/bigButton"/>
-
-                <ImageView
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:src="@drawable/search"
-                    android:layout_gravity="center_vertical|left"
-                    android:elevation="10dp"
-                    android:layout_marginLeft="50dp"
-                    android:visibility="invisible"
-                    android:id="@+id/searchButton"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My Recipe Book"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:textSize="30sp"
+                    android:textColor="@color/softWhite"
+                    />
 
             </FrameLayout>
-
-
-            <!--<HorizontalScrollView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:id="@+id/horizonList"-->
-                <!--android:elevation="4dp"-->
-                <!--android:background="@color/colorAccent">-->
-
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:padding="2dp"-->
-                    <!--&gt;-->
-                    <!--<Button-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:text="All Categories"-->
-                        <!--android:background="@color/colorPrimaryLight"-->
-                        <!--android:textColor="@color/white"-->
-                        <!--android:layout_marginRight="2dp"/>-->
-                    <!--<Button-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:paddingRight="15dp"-->
-                        <!--android:paddingLeft="15dp"-->
-                        <!--android:text="Breakfast"-->
-                        <!--android:background="@color/colorPrimaryLight"-->
-                        <!--android:textColor="@color/white"-->
-                        <!--android:layout_marginRight="2dp"/>-->
-                    <!--<Button-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:paddingRight="5dp"-->
-                        <!--android:paddingLeft="5dp"-->
-                        <!--android:text="Lunch"-->
-                        <!--android:background="@color/colorPrimaryLight"-->
-                        <!--android:textColor="@color/white"-->
-                        <!--android:layout_marginRight="2dp"/>-->
-                    <!--<Button-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:paddingRight="5dp"-->
-                        <!--android:paddingLeft="5dp"-->
-                        <!--android:text="Dinner"-->
-                        <!--android:background="@color/colorPrimaryLight"-->
-                        <!--android:textColor="@color/white"-->
-                        <!--android:layout_marginRight="2dp"/>-->
-                    <!--<Button-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:paddingRight="5dp"-->
-                        <!--android:paddingLeft="5dp"-->
-                        <!--android:text="Snacks"-->
-                        <!--android:background="@color/colorPrimaryLight"-->
-                        <!--android:textColor="@color/white"-->
-                        <!--android:layout_marginRight="2dp"/>-->
-                    <!--<Button-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:paddingRight="5dp"-->
-                        <!--android:paddingLeft="5dp"-->
-                        <!--android:text="Other"-->
-                        <!--android:background="@color/colorPrimaryLight"-->
-                        <!--android:textColor="@color/white"-->
-                        <!--android:layout_marginRight="2dp"/>-->
-                <!--</LinearLayout>-->
-
-
-
-            <!--</HorizontalScrollView>-->
-
 
         </LinearLayout>
 

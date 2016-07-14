@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class HomePage extends AppCompatActivity {
 
     private static final int ADD_REQUEST = 1922, EDIT_REQUEST=2044, RESULT_DELETE=16;
-    public boolean isBigButton, isSearchButton;
+    public boolean isBigButton;
     ImageAdapter adapty;
     Recipe lastClickedRecipe;
     ArrayList<Recipe> recipes;
@@ -74,16 +74,10 @@ public class HomePage extends AppCompatActivity {
             gridview.setAdapter(adapty);
         }
 
-        final ImageView bigButton,addButton, searchButton;
+        final ImageView bigButton,addButton;
         bigButton=(ImageView) findViewById(R.id.bigButton);
         isBigButton=false;
         addButton=(ImageView) findViewById(R.id.addButton);
-        searchButton=(ImageView) findViewById(R.id.searchButton);
-
-        final LinearLayout searchBar= (LinearLayout) findViewById(R.id.searchBar);
-        final EditText searchText= (EditText) findViewById(R.id.searchText);
-        final ImageView searchIcon=(ImageView) findViewById(R.id.searchIcon);
-        isSearchButton=false;
 
         final InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -91,76 +85,44 @@ public class HomePage extends AppCompatActivity {
         final Context context;
 
 
-        bigButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        bigButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if (isBigButton) {
+//                    isBigButton=false;
+//                    bigButton.setAlpha(1.0f);
+//                    addButton.setVisibility(View.INVISIBLE);
+//                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+//                            InputMethodManager.HIDE_NOT_ALWAYS);
+//
+//                } else if (!isBigButton) {
+//                    bigButton.setAlpha(0.3f);
+//                    addButton.setVisibility(View.VISIBLE);
+//                    isBigButton=true;
+//
+//                    addButton.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            openAddItemActivity(view);
+//                        }
+//                    });
+//
+//                } else {
+//                    bigButton.setAlpha(1.0f);
+//                    addButton.setVisibility(View.INVISIBLE);
+//                    isBigButton=false;
+//                }
+//            }
+//
+//        });
 
-                if (isBigButton && isSearchButton) {
-                    searchBar.setVisibility(View.INVISIBLE);
-                    isSearchButton = false;
-                    isBigButton=false;
-                    bigButton.setAlpha(1.0f);
-                    addButton.setVisibility(View.INVISIBLE);
-                    searchButton.setVisibility(View.INVISIBLE);
-                    inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                            InputMethodManager.HIDE_NOT_ALWAYS);
-
-                } else if (!isBigButton) {
-                    bigButton.setAlpha(0.3f);
-                    addButton.setVisibility(View.VISIBLE);
-                    searchButton.setVisibility(View.VISIBLE);
-                    isBigButton=true;
-
-                    searchButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (!isSearchButton && isBigButton) {
-                                searchBar.setVisibility(View.VISIBLE);
-                                isSearchButton = true;
-                                searchIcon.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        searchBar.setVisibility(View.INVISIBLE);
-                                        isSearchButton = false;
-                                        isBigButton=false;
-                                        bigButton.setAlpha(1.0f);
-                                        addButton.setVisibility(View.INVISIBLE);
-                                        searchButton.setVisibility(View.INVISIBLE);
-                                        searchText.setText("");
-                                        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                                                InputMethodManager.HIDE_NOT_ALWAYS);
-                                    }
-                                });
-
-                            } else if (isSearchButton && isBigButton) {
-                                searchBar.setVisibility(View.INVISIBLE);
-                                isSearchButton = false;
-                                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                                        InputMethodManager.HIDE_NOT_ALWAYS);
-                            }
-                        }
-                    });
-
-                    addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             openAddItemActivity(view);
                         }
-
-
-
                     });
-
-                } else {
-                    bigButton.setAlpha(1.0f);
-                    addButton.setVisibility(View.INVISIBLE);
-                    searchButton.setVisibility(View.INVISIBLE);
-                    isBigButton=false;
-                }
-            }
-
-
-        });
 
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

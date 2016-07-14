@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,8 +73,8 @@ public class ImageAdapter extends BaseAdapter {
 
 
         try {
-//            imageView.setImageURI(recipe.get(position).getUri());
-            saveFileToImageView(recipe.get(position).getUri().getPath());
+            imageView.setImageURI(recipe.get(position).getUri());
+            //saveFileToImageView(recipe.get(position).getUri().getPath());
         } catch (Exception e) {
         }
 
@@ -103,17 +104,17 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public void saveFileToImageView(String filePath) {
-        File imgFile = new  File(filePath);
-
-        if(imgFile.exists()){
-
-            Bitmap myBitmap = rotateImage(BitmapFactory.decodeFile(imgFile.getAbsolutePath()),90);
-
-            imageView.setImageBitmap(myBitmap);
-
-        } else {
-            Log.i("STUFF","Image doesn't exist");
-        }
+//        File imgFile = new  File(filePath);
+//
+//        if(imgFile.exists()){
+//
+//            Bitmap myBitmap = rotateImage(BitmapFactory.decodeFile(imgFile.getAbsolutePath()),90);
+//
+//            imageView.setImageBitmap(myBitmap);
+//
+//        } else {
+//            Log.i("STUFF","Image doesn't exist");
+//        }
     }
 
     public static Bitmap rotateImage(Bitmap source, float angle) {
