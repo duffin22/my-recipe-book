@@ -36,8 +36,8 @@ public class HomePage extends AppCompatActivity {
     public boolean isBigButton;
     ImageAdapter adapty;
     Recipe lastClickedRecipe;
-    ArrayList<Recipe> recipes;
-    ArrayList<String> ingredients;
+    ArrayList<Recipe> recipes, saladRecipe, beefRecipe, tomatoesRecipe;
+    ArrayList<String> ingredients, saladIngredients, beefIngredients, tomatoesIngredients;
     File saveFile;
 
     @Override
@@ -60,8 +60,45 @@ public class HomePage extends AppCompatActivity {
         ingredients.add("bacon");
         ingredients.add("anchovies");
 
+        saladIngredients = new ArrayList<>();
+        beefIngredients = new ArrayList<>();
+        tomatoesIngredients = new ArrayList<>();
+
+        saladIngredients.add("25g Chopped Walnuts");
+        saladIngredients.add("300g Washed Salad Leaves");
+        saladIngredients.add("Pinch of Salt");
+        saladIngredients.add("15ml Olive Oil");
+        saladIngredients.add("100g Thinly Chopped Onion");
+
+        beefIngredients.add("300g SLice Rump Steak");
+        beefIngredients.add("25ml Cooking Oil");
+        beefIngredients.add("1 Large Onion, Sliced");
+        beefIngredients.add("2 Cloves Fresh Garlic");
+        beefIngredients.add("25g Fresh Root Ginger");
+        beefIngredients.add("1 Red Pepper");
+        beefIngredients.add("2tbsp Salted Black Beans");
+        beefIngredients.add("2 Large Red Chillies");
+        beefIngredients.add("3 Stalks Green Spring Onion");
+        beefIngredients.add("1/2tbsp Chinese Rice Wine");
+        beefIngredients.add("1tbsp Caster Sugar");
+        beefIngredients.add("1tsp Dark Soy Sauce");
+
+
+
+        tomatoesIngredients.add("300g Washed Mixed Leaves");
+        tomatoesIngredients.add("1/2 Red Bell Pepper, Thinly Sliced");
+        tomatoesIngredients.add("100g Surimi");
+
+
+
+
+
+
+
         try {
-            recipes.add(new Recipe("Fortune Cookie", 0, "Snack", ingredients, 497312358));
+            recipes.add(new Recipe("Beef with Black Bean Sauce", 4, "Lunch", beefIngredients, 532742568));
+            recipes.add(new Recipe("Crushed Walnut Salad", 5, "Lunch", saladIngredients, 206700415));
+            recipes.add(new Recipe("Surimi & Bell Pepper Salad", 2, "Lunch", tomatoesIngredients, 475095041));
         } catch (Exception e) {
 
         }
@@ -167,8 +204,6 @@ public class HomePage extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADD_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(HomePage.this, "Item successfully passed back to collection",
-                        Toast.LENGTH_SHORT).show();
 
                 Recipe r = data.getExtras().getParcelable("recipe");
                 addRecipeToList(r);
@@ -176,8 +211,6 @@ public class HomePage extends AppCompatActivity {
             }
         } else if (requestCode == EDIT_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(HomePage.this, "Your recipe has been added to your collection",
-                        Toast.LENGTH_SHORT).show();
 
                 Recipe r = data.getExtras().getParcelable("recipe");
                 replaceRecipeInList(r, recipes.indexOf(lastClickedRecipe));
@@ -187,9 +220,6 @@ public class HomePage extends AppCompatActivity {
                     recipes.remove(i);
                     adapty.notifyDataSetChanged();
                 }
-            } else {
-                Toast.makeText(HomePage.this, "Item not added to your collection",
-                        Toast.LENGTH_SHORT).show();
             }
         }
     }

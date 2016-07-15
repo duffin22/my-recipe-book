@@ -43,7 +43,7 @@ public class Recipe implements Parcelable {
         this.rating=rating;
         this.ingredients=ingredients;
         this.rando= number;
-        this.uri=Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/DCIM/","Default-title" +this.rando+".png"));
+        this.uri=Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/DCIM/",this.rando+".png"));
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

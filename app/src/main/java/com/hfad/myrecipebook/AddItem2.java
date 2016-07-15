@@ -415,6 +415,7 @@ public class AddItem2 extends AppCompatActivity {
             if (data==null) {
                 Log.i("LOG","returned null data ******************");
                 saveFileToImageView(recipe.getUri().getPath());
+                recipe.getUri().getPath();
 
 
             }

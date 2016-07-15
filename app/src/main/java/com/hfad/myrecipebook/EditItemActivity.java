@@ -57,7 +57,7 @@ public class EditItemActivity extends AppCompatActivity {
     ListView ingredientList;
     EditText addEditText, titleEdit;
     Recipe recipe;
-    ImageView star1,star2,star3,star4,star5;
+    ImageView star1,star2,star3,star4,star5, cameraButton;
     Button confirm;
     int lastStarClicked,index, lastClickedIngredientIndex;
     String lastClickedIngredient;
@@ -95,7 +95,11 @@ public class EditItemActivity extends AppCompatActivity {
         ingredientList.setAdapter(adapty);
         makeIngredientsUnclickable();
         params = ingredientList.getLayoutParams();
-        params.height = (101*ingredients.size());
+        if (ingredients.size()>10) {
+            params.height = (101 * ingredients.size());
+        } else {
+            params.height = (1010);
+        }
 
         savedIngredients=new ArrayList<>();
         if (ingredients.size()>0) {
@@ -136,6 +140,17 @@ public class EditItemActivity extends AppCompatActivity {
         category.setSelection(getCategoryIndex(recipe.category));
         //**********************************************************************************
 
+        //add in camera usage
+        cameraButton= (ImageView) findViewById(R.id.addPhotoButton);
+
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Pointer","Entered onClick creator for camera button");
+                openCameraActivity();
+            }
+        });
+
         //get access to keyboard
         final InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -157,7 +172,11 @@ public class EditItemActivity extends AppCompatActivity {
                     if (s.length() > 0) {
                         ingredients.add(s);
                         adapty.notifyDataSetChanged();
-                        params.height = (101 * ingredients.size());
+                        if (ingredients.size()>10) {
+                            params.height = (101 * ingredients.size());
+                        } else {
+                            params.height = (1010);
+                        }
                         addEditText.setText("");
                     } else {
                         Toast.makeText(EditItemActivity.this, "Ingredients cannot have zero length",
@@ -188,7 +207,11 @@ public class EditItemActivity extends AppCompatActivity {
                             if (s.length() > 0) {
                                 ingredients.add(s);
                                 adapty.notifyDataSetChanged();
-                                params.height = (101 * ingredients.size());
+                                if (ingredients.size()>10) {
+                                    params.height = (101 * ingredients.size());
+                                } else {
+                                    params.height = (1010);
+                                }
                                 addEditText.setText("");
                             } else {
                                 Toast.makeText(EditItemActivity.this, "Ingredients cannot have zero length",
@@ -219,20 +242,9 @@ public class EditItemActivity extends AppCompatActivity {
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isPromptNeeded) {
-                    AlertDialog diaBox = AskOptionHome();
-                    diaBox.show();
-                } else if ((recipe.title!=titleEdit.getText().toString())) {
-                    AlertDialog diaBox = AskOptionHome();
-                    diaBox.show();
-                } else {
-                    recipe.ingredients=savedIngredients;
-                    Intent intent = new Intent();
-                    intent.putExtra("recipe",recipe);
-                    setResult(RESULT_OK, intent);
-                    finish();
-                }
-
+                onSave();
+                AlertDialog diaBox = AskOptionHome();
+                diaBox.show();
             }
         });
 
@@ -287,22 +299,41 @@ public class EditItemActivity extends AppCompatActivity {
 
     }
 
+    public void openCameraActivity() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, recipe.getUri());
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        Log.d("Pointer","Entered Camera Activity *******");
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            if (data==null) {
+                Log.i("LOG","returned null data ******************");
+                imageAdd.setImageResource(R.drawable.burger);
+                saveFileToImageView(recipe.getUri().getPath());
+                recipe.getUri().getPath();
+
+
+            }
+        }
+
+    }
+
     public void onSave() {
         String selectedValue=String.valueOf(category.getSelectedItem());
         recipe.category=selectedValue;
         recipe.title=titleEdit.getText().toString();
         recipe.rating=lastStarClicked;
         savedIngredients=recipe.ingredients;
-        isPromptNeeded=false;
-
     }
 
     private AlertDialog AskOptionHome() {
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                 //set message, title, and icon
-                .setTitle("Exit Recipe Page")
-                .setMessage("Any unsaved changes will be lost. Would you like to continue?")
-                .setIcon(R.drawable.ic_home)
+                .setTitle("Save Recipe")
+                .setMessage("All changes will be saved. To discard changes, use 'back' instead.\n\nWould you like to continue?")
+                .setIcon(R.drawable.ic_save)
 
                 .setPositiveButton("No", new DialogInterface.OnClickListener() {
 
@@ -381,7 +412,11 @@ public class EditItemActivity extends AppCompatActivity {
                         dialog.dismiss();
                         ingredients.remove(lastClickedIngredientIndex);
                         adapty.notifyDataSetChanged();
-                        params.height = (101 * ingredients.size());
+                        if (ingredients.size()>10) {
+                            params.height = (101 * ingredients.size());
+                        } else {
+                            params.height = (1010);
+                        }
 
 
                     }
@@ -426,10 +461,49 @@ public class EditItemActivity extends AppCompatActivity {
         });
     }
 
+    private AlertDialog AskOptionNoPhoto() {
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Cancel New Recipe")
+                .setMessage("All changes will be lost. Continue?")
+                .setIcon(R.drawable.ic_close_purple)
+
+                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+
+                })
+
+                .setNegativeButton("Go Home", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        finish();
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+
+    }
+
     @Override
     public void onBackPressed() {
-        AlertDialog diaBox = AskOptionHome();
-        diaBox.show();
+
+        if (!titleEdit.getText().toString().equals(recipe.title)) {
+            isPromptNeeded=true;
+        } else if (ingredients.get(ingredients.size()-1)!=recipe.ingredients.get(recipe.ingredients.size()-1)) {
+            isPromptNeeded=true;
+        }
+
+        if (isPromptNeeded) {
+            AlertDialog diaBox = AskOptionNoPhoto();
+            diaBox.show();
+        } else {
+            finish();
+        }
     }
 
     public int getCategoryIndex(String s) {
