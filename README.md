@@ -2,18 +2,14 @@
 ##General Assembly, Seattle
 ###Project Requirements
 #######
-Requirements:
+For this project, I was tasked to create my very first Android app that runs on a real Android device! The main goal of the project was to gather knowledge in using Android Activities, Intents, Layouts & ListViews. The more specifc requirements were as follows:
 
-Implement a paper prototype for your app.
-Your app must contain a ListView and/or GridView in two activities
-Your app should be able to show a list of lists
-Your app must implement at least two Activities
-Data must be passed from one activity to another
-Data changes in one Activity must appear in all other Activities.
-Persist data while your app is open using a singleton (or other, better, ways)
-Users can add new items to each list
-Users can edit items in each list
-Users can delete items in each list
-Create custom Java classes to model your data (see below)
-Display correctly in both landscape and portrait orientations
-Show error messages if invalid input is given
+- Implement a paper prototype for your app.
+- Your app must contain ListViews and/or GridViews
+- Your app must implement at least two Activities
+- Data must be passed from one activity to another
+- Users can add/edit/delete items in each list
+- Display in both landscape and portrait orientations
+
+###Step 1: Planning & Paper Prototype
+#######
