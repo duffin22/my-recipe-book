@@ -2,7 +2,7 @@
 
 ##My Recipe Book
 <p align="center">
-![descr g](./cat.png)
+![descr g](./Screenshots/home_activity.png)
 ![descr g](./cat.png)
 ![descr g](./cat.png)
 </p>
