@@ -13,3 +13,5 @@ For this project, I was tasked to create my very first Android app that runs on 
 
 ###Step 1: Planning & Paper Prototype
 #######
+The first step was to formulate an idea. For me, a big part of the decision making process for each project is to push myself and learn new skills for my future career. With that in mind, I set my goal in this task to successfully utilize the user's local camera application to show images within my app.
+
