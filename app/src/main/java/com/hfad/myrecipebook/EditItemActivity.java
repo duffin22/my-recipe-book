@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -452,10 +453,52 @@ public class EditItemActivity extends AppCompatActivity {
 
         if(imgFile.exists()){
 
-            Bitmap myBitmap = rotateImage(BitmapFactory.decodeFile(imgFile.getAbsolutePath()),90);
+            try {
+                ExifInterface ei = new ExifInterface(recipe.getUri().getPath());
+                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+                Bitmap yourBitmap = BitmapFactory.decodeFile(imgFile.getPath());
+                Bitmap myBitmap;
+                switch(orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        myBitmap = rotateImage(yourBitmap, 90);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        myBitmap = rotateImage(yourBitmap, 180);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        myBitmap = rotateImage(yourBitmap, 270);
+                        break;
+                    default:
+                        myBitmap = yourBitmap;
+                }
+                imageAdd.setImageBitmap(myBitmap);
+
+                //imageAdd.setImageBitmap(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
+//                photoFrame.setVisibility(View.VISIBLE);
+//                cameraButton.setImageResource(R.drawable.ic_add_a_photo_purple);
+//                hasPhotoBeenTaken=true;
+//
+//                LinearLayout titleLayout=(LinearLayout) findViewById(R.id.titleLayout);
+//                titleParams =  (LinearLayout.LayoutParams) titleLayout.getLayoutParams();
+//                titleParams.setMargins(0,10,0,10);
+//                titleLayout.setLayoutParams(titleParams);
+            } catch (Exception e) {
+                Log.d("TAG","FAILURE TO FIND IMAGE SOURCE");
+            }
+
 
             //imageAdd.setImageBitmap(myBitmap);
-            imageAdd.setImageBitmap(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
+
+            //imageAdd.setImageBitmap(myBitmap);
+//            imageAdd.setImageBitmap(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
+//            photoFrame.setVisibility(View.VISIBLE);
+//            cameraButton.setImageResource(R.drawable.ic_add_a_photo_purple);
+//            hasPhotoBeenTaken=true;
+//
+//            LinearLayout titleLayout=(LinearLayout) findViewById(R.id.titleLayout);
+//            titleParams =  (LinearLayout.LayoutParams) titleLayout.getLayoutParams();
+//            titleParams.setMargins(0,10,0,10);
+//            titleLayout.setLayoutParams(titleParams);
 
         } else {
             Log.i("STUFF","Image doesn't exist");
