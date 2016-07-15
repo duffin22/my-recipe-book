@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.hfad.myrecipebook.AddItemActivity"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
 
     <!--toolbar layout-->
@@ -50,7 +50,7 @@
 
 
         <ImageView
-            android:layout_width="152dp"
+            android:layout_width="432dp"
             android:layout_height="match_parent"/>
 
         <ImageView
@@ -65,87 +65,13 @@
 
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <!--Frame layout containing image of recipe and ratings bar-->
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="360dp"
-                android:elevation="4dp"
-                android:visibility="gone"
-                android:id="@+id/photoFrame"
-                >
-
-                <!--rating bar linear layout-->
-                <LinearLayout
-                    android:layout_width="180dp"
-                    android:layout_height="48dp"
-                    android:id="@+id/rating"
-                    android:layout_gravity="bottom|end"
-                    android:background="@android:color/transparent"
-                    android:elevation="5dp"
-                    >
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/star_empty"
-                        android:id="@+id/star1"/>
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/star_empty"
-                        android:id="@+id/star2"/>
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/star_empty"
-                        android:id="@+id/star3"/>
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/star_empty"
-                        android:id="@+id/star4"/>
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:src="@drawable/star_empty"
-                        android:id="@+id/star5"/>
-
-
-                </LinearLayout>
-
-                <!--image view displaying photo of the recipe-->
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:cropToPadding="true"
-                    android:id="@+id/imageAdd"
-                    android:src="@drawable/camera_background"
-                    android:alpha="0.8"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    />
-
-
-            </FrameLayout>
-
 
             <!--Linear layout containing title-->
             <LinearLayout
@@ -303,6 +229,81 @@
 
 
     </ScrollView>
+
+
+    <!--Frame layout containing image of recipe and ratings bar-->
+    <FrameLayout
+        android:layout_width="360dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:visibility="gone"
+        android:id="@+id/photoFrame"
+        >
+
+        <!--rating bar linear layout-->
+        <LinearLayout
+            android:layout_width="180dp"
+            android:layout_height="48dp"
+            android:id="@+id/rating"
+            android:layout_gravity="bottom|end"
+            android:background="@android:color/transparent"
+            android:elevation="5dp"
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/star_empty"
+                android:id="@+id/star1"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/star_empty"
+                android:id="@+id/star2"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/star_empty"
+                android:id="@+id/star3"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/star_empty"
+                android:id="@+id/star4"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/star_empty"
+                android:id="@+id/star5"/>
+
+
+        </LinearLayout>
+
+        <!--image view displaying photo of the recipe-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:cropToPadding="true"
+            android:id="@+id/imageAdd"
+            android:src="@drawable/camera_background"
+            android:alpha="0.8"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            />
+
+
+    </FrameLayout>
+
 
 
 </FrameLayout>

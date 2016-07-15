@@ -86,7 +86,7 @@ public class AddItem2 extends AppCompatActivity {
         Log.i("TAG","FILE DIRECTORY IS "+fileDirectory);
 
         emptyIngredients=new ArrayList<>();
-        emptyIngredients.add("Press '+' to add your Ingredients!");
+        emptyIngredients.add("Press '+' to add Ingredients!");
         recipe=new Recipe("",0,"Breakfast",emptyIngredients);
 
         //**********************************************************************************

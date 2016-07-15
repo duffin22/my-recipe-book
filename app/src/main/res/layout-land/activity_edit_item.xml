@@ -39,6 +39,7 @@
             android:padding="8dp"
             android:src="@drawable/ic_save"
             android:layout_gravity="center_vertical"/>
+
         <ImageView
             android:layout_width="480dp"
             android:layout_height="match_parent"/>
