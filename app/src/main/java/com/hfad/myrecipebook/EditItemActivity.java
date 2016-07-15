@@ -454,7 +454,8 @@ public class EditItemActivity extends AppCompatActivity {
 
             Bitmap myBitmap = rotateImage(BitmapFactory.decodeFile(imgFile.getAbsolutePath()),90);
 
-            imageAdd.setImageBitmap(myBitmap);
+            //imageAdd.setImageBitmap(myBitmap);
+            imageAdd.setImageBitmap(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
 
         } else {
             Log.i("STUFF","Image doesn't exist");

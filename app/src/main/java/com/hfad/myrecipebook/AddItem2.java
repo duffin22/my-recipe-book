@@ -86,7 +86,7 @@ public class AddItem2 extends AppCompatActivity {
         Log.i("TAG","FILE DIRECTORY IS "+fileDirectory);
 
         emptyIngredients=new ArrayList<>();
-        emptyIngredients.add("Press '+' to add Ingredients!");
+        emptyIngredients.add("Press '+' to add Ingredients");
         recipe=new Recipe("",0,"Breakfast",emptyIngredients);
 
         //**********************************************************************************
@@ -98,7 +98,12 @@ public class AddItem2 extends AppCompatActivity {
         ingredientList.setAdapter(adapty);
         makeIngredientsUnclickable();
         params = ingredientList.getLayoutParams();
-        params.height = (101*ingredients.size());
+
+        if (ingredients.size()>10) {
+            params.height = (101 * ingredients.size());
+        } else {
+            params.height = (1010);
+        }
 
         savedIngredients=new ArrayList<>();
         if (ingredients.size()>0) {
@@ -169,15 +174,23 @@ public class AddItem2 extends AppCompatActivity {
                     inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                     if (s.length() > 0) {
-                        if (ingredients.get(0)!="Press '+' to add your Ingredients!") {
+                        if (ingredients.get(0)!="Press '+' to add Ingredients") {
                             ingredients.add(s);
                             adapty.notifyDataSetChanged();
-                            params.height = (101 * ingredients.size());
+                            if (ingredients.size()>10) {
+                                params.height = (101 * ingredients.size());
+                            } else {
+                                params.height = (1010);
+                            }
                             addEditText.setText("");
                         } else {
                             ingredients.set(0,s);
                             adapty.notifyDataSetChanged();
-                            params.height = (101 * ingredients.size());
+                            if (ingredients.size()>10) {
+                                params.height = (101 * ingredients.size());
+                            } else {
+                                params.height = (1010);
+                            }
                             addEditText.setText("");
                         }
                     } else {
@@ -207,15 +220,23 @@ public class AddItem2 extends AppCompatActivity {
                             addEdit.setVisibility(View.GONE);
 
                             if (s.length() > 0) {
-                                if (ingredients.get(0)!="Press '+' to add your Ingredients!") {
+                                if (ingredients.get(0)!="Press '+' to add Ingredients") {
                                     ingredients.add(s);
                                     adapty.notifyDataSetChanged();
-                                    params.height = (101 * ingredients.size());
+                                    if (ingredients.size()>10) {
+                                        params.height = (101 * ingredients.size());
+                                    } else {
+                                        params.height = (1010);
+                                    }
                                     addEditText.setText("");
                                 } else {
                                     ingredients.set(0,s);
                                     adapty.notifyDataSetChanged();
-                                    params.height = (101 * ingredients.size());
+                                    if (ingredients.size()>10) {
+                                        params.height = (101 * ingredients.size());
+                                    } else {
+                                        params.height = (1010);
+                                    }
                                     addEditText.setText("");
                                 }
                             } else {
@@ -395,7 +416,6 @@ public class AddItem2 extends AppCompatActivity {
             if (data==null) {
                 Log.i("LOG","returned null data ******************");
                 saveFileToImageView(recipe.getUri().getPath());
-                hasPhotoBeenTaken=true;
 
             }
         }
@@ -422,7 +442,11 @@ public class AddItem2 extends AppCompatActivity {
                         dialog.dismiss();
                         ingredients.remove(lastClickedIngredientIndex);
                         adapty.notifyDataSetChanged();
-                        params.height = (101 * ingredients.size());
+                        if (ingredients.size()>10) {
+                            params.height = (101 * ingredients.size());
+                        } else {
+                            params.height = (1010);
+                        }
 
 
                     }
@@ -469,8 +493,13 @@ public class AddItem2 extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        AlertDialog diaBox = AskOptionHome();
-        diaBox.show();
+
+        if (hasPhotoBeenTaken) {
+            AlertDialog diaBox = AskOptionHome();
+            diaBox.show();
+        } else {
+            finish();
+        }
     }
 
     public int getCategoryIndex(String s) {
@@ -496,9 +525,11 @@ public class AddItem2 extends AppCompatActivity {
 
             Bitmap myBitmap = rotateImage(BitmapFactory.decodeFile(imgFile.getAbsolutePath()),90);
 
-            imageAdd.setImageBitmap(myBitmap);
+            //imageAdd.setImageBitmap(myBitmap);
+            imageAdd.setImageBitmap(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
             photoFrame.setVisibility(View.VISIBLE);
             cameraButton.setImageResource(R.drawable.ic_add_a_photo_purple);
+            hasPhotoBeenTaken=true;
 
             LinearLayout titleLayout=(LinearLayout) findViewById(R.id.titleLayout);
             titleParams =  (LinearLayout.LayoutParams) titleLayout.getLayoutParams();
