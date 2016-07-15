@@ -1,16 +1,15 @@
 
 <FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="120dp"
     android:id="@+id/frame"
     >
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rating"
-        android:text="7/10"
         android:layout_gravity="top|end"
         android:background="@color/softerWhite"
         android:textColor="@color/white"
@@ -56,26 +55,26 @@
 
     </LinearLayout>
 
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
+        android:adjustViewBounds="false"
         android:id="@+id/image"
         />
 
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="41dp"
+        android:layout_height="31dp"
         android:layout_gravity="bottom"
         android:textColor="@color/white"
-        android:background="@color/colorPrimaryDarkSoft"
+        android:background="@color/softBlack"
         android:text="Chicken"
         android:id="@+id/name"
         android:paddingLeft="1dp"
+        android:paddingRight="1dp"
         android:paddingBottom="1dp"
-        android:textSize="16dp"/>
+        android:textSize="12dp"/>
 
 </FrameLayout>

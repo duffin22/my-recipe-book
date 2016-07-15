@@ -49,6 +49,7 @@ public class AddItemActivity extends AppCompatActivity {
     int lastStarClicked;
     Spinner category;
     static String fileDirectory;
+    boolean hasPhotoBeenTaken=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +173,7 @@ public class AddItemActivity extends AppCompatActivity {
             if (data==null) {
                 Log.i("LOG","returned null data ******************");
                 saveFileToImageView(recipe.getUri().getPath());
+                hasPhotoBeenTaken=true;
             }
         }
 

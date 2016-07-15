@@ -70,6 +70,7 @@ public class AddItem2 extends AppCompatActivity {
     boolean addButtonClicked=false;
     InputMethodManager inputManager;
     boolean isPromptNeeded=false;
+    boolean hasPhotoBeenTaken=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,18 +247,12 @@ public class AddItem2 extends AppCompatActivity {
         homeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isPromptNeeded) {
-                    AlertDialog diaBox = AskOptionHome();
-                    diaBox.show();
-                } else if ((recipe.title!=titleEdit.getText().toString())) {
+                if (hasPhotoBeenTaken) {
                     AlertDialog diaBox = AskOptionHome();
                     diaBox.show();
                 } else {
-                    recipe.ingredients=savedIngredients;
-                    Intent intent = new Intent();
-                    intent.putExtra("recipe",recipe);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    Toast.makeText(AddItem2.this, "Please take a photo before saving your recipe.",
+                            Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -400,6 +395,7 @@ public class AddItem2 extends AppCompatActivity {
             if (data==null) {
                 Log.i("LOG","returned null data ******************");
                 saveFileToImageView(recipe.getUri().getPath());
+                hasPhotoBeenTaken=true;
 
             }
         }

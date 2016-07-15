@@ -1,11 +1,12 @@
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/horizontalItem"
+    android:layout_height="wrap_content"
+    android:id="@+id/ingredientItem"
     android:text="123abc"
-    android:textColor="#fafafa"
+    android:textColor="@color/editPageText"
     android:textSize="18dp"
     android:textAllCaps="true"
+    android:paddingLeft="10dp"
     >
 </TextView>

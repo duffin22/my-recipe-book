@@ -222,7 +222,8 @@ public class EditItemActivity extends AppCompatActivity {
                     AlertDialog diaBox = AskOptionHome();
                     diaBox.show();
                 } else if ((recipe.title!=titleEdit.getText().toString())) {
-
+                    AlertDialog diaBox = AskOptionHome();
+                    diaBox.show();
                 } else {
                     recipe.ingredients=savedIngredients;
                     Intent intent = new Intent();
