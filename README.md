@@ -1,7 +1,11 @@
 #ADI Churro - Project 01
 
 ##My Recipe Book
-#######
+<p align="center">
+![descr g](./cat.png)
+![descr g](./cat.png)
+![descr g](./cat.png)
+</p>
 Add screenshots & description here. To see a short video demonstration of my paper prototype, [click here.] (https://www.youtube.com/watch?v=YfShw1BgMKY)
 
 ###Project Requirements
