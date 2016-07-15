@@ -3,9 +3,8 @@
 ##My Recipe Book
 <p align="center">
 <img src="./Screenshots/home_activity.png" width="200">
-![descr g](./Screenshots/home_activity.png)
-![descr g](./cat.png)
-![descr g](./cat.png)
+<img src="./Screenshots/add_item_activity.png" width="200">
+<img src="./Screenshots/edit_item_activity.png" width="200">
 </p>
 Add screenshots & description here. To see a short video demonstration of my paper prototype, [click here.] (https://www.youtube.com/watch?v=YfShw1BgMKY)
 
