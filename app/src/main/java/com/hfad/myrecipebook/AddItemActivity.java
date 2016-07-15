@@ -87,9 +87,6 @@ public class AddItemActivity extends AppCompatActivity {
         setRatingBarClickListener();
 
 
-
-
-
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

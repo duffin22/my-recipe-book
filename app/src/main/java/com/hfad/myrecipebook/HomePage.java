@@ -159,7 +159,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     public void openAddItemActivity(View view) {
-        Intent intent = new Intent(this.getApplicationContext(), AddItemActivity.class);
+        Intent intent = new Intent(this.getApplicationContext(), AddItem2.class);
         //this.startActivity(intent);
         this.startActivityForResult(intent,ADD_REQUEST);
     }

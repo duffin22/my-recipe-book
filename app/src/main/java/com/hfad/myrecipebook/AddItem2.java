@@ -46,11 +46,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
-public class EditItemActivity extends AppCompatActivity {
+public class AddItem2 extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1886, RESULT_DELETE=16;
     ImageView imageAdd;
-    ArrayList<String> ingredients,savedIngredients;
+    ArrayList<String> ingredients,savedIngredients, emptyIngredients;
     ImageView addIngredient, removeIngredient, tickIcon, homeIcon, saveIcon, deleteIcon;
+    ImageView cameraButton;
     TextView ingredientsText;
     LinearLayout addEdit, ratingBar, toolbar;
     ListView ingredientList;
@@ -62,9 +63,10 @@ public class EditItemActivity extends AppCompatActivity {
     String lastClickedIngredient;
     Spinner category;
     static String fileDirectory;
-    FrameLayout itemsFrame;
+    FrameLayout itemsFrame, photoFrame;
     IngredientListAdapter adapty;
     ViewGroup.LayoutParams params;
+    LinearLayout.LayoutParams titleParams;
     boolean addButtonClicked=false;
     InputMethodManager inputManager;
     boolean isPromptNeeded=false;
@@ -72,8 +74,9 @@ public class EditItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_item);
+        setContentView(R.layout.activity_add_item2);
         toolbar=(LinearLayout) findViewById(R.id.toolbar);
+        photoFrame=(FrameLayout) findViewById(R.id.photoFrame);
 
         inputManager= (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
@@ -81,9 +84,9 @@ public class EditItemActivity extends AppCompatActivity {
         fileDirectory=Environment.getExternalStorageDirectory().getAbsolutePath(); //  getApplicationContext().getFilesDir().getAbsolutePath();
         Log.i("TAG","FILE DIRECTORY IS "+fileDirectory);
 
-        ///****get input recipe based on the extra that was put in
-        recipe = getIntent().getParcelableExtra("recipe");
-        index=getIntent().getIntExtra("index",-1);
+        emptyIngredients=new ArrayList<>();
+        emptyIngredients.add("Press '+' to add your Ingredients!");
+        recipe=new Recipe("",0,"Breakfast",emptyIngredients);
 
         //**********************************************************************************
         //****** INITIALIZE ALL ELEMENTS OF LAYOUT   ***************************************
@@ -139,6 +142,17 @@ public class EditItemActivity extends AppCompatActivity {
         final InputMethodManager inputManager = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);
 
+        //add in camera usage
+        cameraButton= (ImageView) findViewById(R.id.addPhotoButton);
+
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("Pointer","Entered onClick creator for camera button");
+                openCameraActivity();
+            }
+        });
+
 
 
         addEdit = (LinearLayout) findViewById(R.id.addEditBar);
@@ -154,12 +168,19 @@ public class EditItemActivity extends AppCompatActivity {
                     inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
                     if (s.length() > 0) {
-                        ingredients.add(s);
-                        adapty.notifyDataSetChanged();
-                        params.height = (101 * ingredients.size());
-                        addEditText.setText("");
+                        if (ingredients.get(0)!="Press '+' to add your Ingredients!") {
+                            ingredients.add(s);
+                            adapty.notifyDataSetChanged();
+                            params.height = (101 * ingredients.size());
+                            addEditText.setText("");
+                        } else {
+                            ingredients.set(0,s);
+                            adapty.notifyDataSetChanged();
+                            params.height = (101 * ingredients.size());
+                            addEditText.setText("");
+                        }
                     } else {
-                        Toast.makeText(EditItemActivity.this, "Ingredients cannot have zero length",
+                        Toast.makeText(AddItem2.this, "Ingredients cannot have zero length",
                                 Toast.LENGTH_SHORT).show();
                     }
                     addEdit.setVisibility(View.GONE);
@@ -185,12 +206,19 @@ public class EditItemActivity extends AppCompatActivity {
                             addEdit.setVisibility(View.GONE);
 
                             if (s.length() > 0) {
-                                ingredients.add(s);
-                                adapty.notifyDataSetChanged();
-                                params.height = (101 * ingredients.size());
-                                addEditText.setText("");
+                                if (ingredients.get(0)!="Press '+' to add your Ingredients!") {
+                                    ingredients.add(s);
+                                    adapty.notifyDataSetChanged();
+                                    params.height = (101 * ingredients.size());
+                                    addEditText.setText("");
+                                } else {
+                                    ingredients.set(0,s);
+                                    adapty.notifyDataSetChanged();
+                                    params.height = (101 * ingredients.size());
+                                    addEditText.setText("");
+                                }
                             } else {
-                                Toast.makeText(EditItemActivity.this, "Ingredients cannot have zero length",
+                                Toast.makeText(AddItem2.this, "Ingredients cannot have zero length",
                                         Toast.LENGTH_SHORT).show();
                             }
                             inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -222,7 +250,8 @@ public class EditItemActivity extends AppCompatActivity {
                     AlertDialog diaBox = AskOptionHome();
                     diaBox.show();
                 } else if ((recipe.title!=titleEdit.getText().toString())) {
-
+                    AlertDialog diaBox = AskOptionHome();
+                    diaBox.show();
                 } else {
                     recipe.ingredients=savedIngredients;
                     Intent intent = new Intent();
@@ -240,7 +269,7 @@ public class EditItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onSave();
-                Toast.makeText(EditItemActivity.this, "Recipe updated. Press the home button to return to your home page.",
+                Toast.makeText(AddItem2.this, "Recipe updated. Press the home button to return to your home page.",
                         Toast.LENGTH_SHORT).show();
 
             }
@@ -359,6 +388,24 @@ public class EditItemActivity extends AppCompatActivity {
 
     }
 
+    public void openCameraActivity() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, recipe.getUri());
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        Log.d("Pointer","Entered Camera Activity *******");
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
+            if (data==null) {
+                Log.i("LOG","returned null data ******************");
+                saveFileToImageView(recipe.getUri().getPath());
+
+            }
+        }
+
+    }
+
     private AlertDialog AskOptionIngredient(String s) {
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                 //set message, title, and icon
@@ -398,7 +445,7 @@ public class EditItemActivity extends AppCompatActivity {
                     AlertDialog diaBox = AskOptionIngredient(lastClickedIngredient);
                     diaBox.show();
                 } catch (Exception e) {
-                    Toast.makeText(EditItemActivity.this, "Grid item is not clickable yet",
+                    Toast.makeText(AddItem2.this, "Grid item is not clickable yet",
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -406,7 +453,7 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     public void makeIngredientsUnclickable() {
-       ingredientList.setEnabled(false);
+        ingredientList.setEnabled(false);
     }
 
     public void makeTitleClickable() {
@@ -454,6 +501,13 @@ public class EditItemActivity extends AppCompatActivity {
             Bitmap myBitmap = rotateImage(BitmapFactory.decodeFile(imgFile.getAbsolutePath()),90);
 
             imageAdd.setImageBitmap(myBitmap);
+            photoFrame.setVisibility(View.VISIBLE);
+            cameraButton.setImageResource(R.drawable.ic_add_a_photo_purple);
+
+            LinearLayout titleLayout=(LinearLayout) findViewById(R.id.titleLayout);
+            titleParams =  (LinearLayout.LayoutParams) titleLayout.getLayoutParams();
+            titleParams.setMargins(0,10,0,10);
+            titleLayout.setLayoutParams(titleParams);
 
         } else {
             Log.i("STUFF","Image doesn't exist");

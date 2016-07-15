@@ -24,7 +24,8 @@
         <activity
             android:name=".AddItemActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".EditItemActivity"></activity>
+        <activity android:name=".EditItemActivity" />
+        <activity android:name=".AddItem2"></activity>
     </application>
 
 </manifest>
