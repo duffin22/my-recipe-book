@@ -99,6 +99,12 @@ public class HomePage extends AppCompatActivity {
             recipes.add(new Recipe("Beef with Black Bean Sauce", 4, "Lunch", beefIngredients, 532742568));
             recipes.add(new Recipe("Crushed Walnut Salad", 5, "Lunch", saladIngredients, 206700415));
             recipes.add(new Recipe("Surimi & Bell Pepper Salad", 2, "Lunch", tomatoesIngredients, 475095041));
+//            recipes.add(new Recipe("Mixed Vegetable Chow Mein", 4, "Lunch", tomatoesIngredients, 366408299));
+//            recipes.add(new Recipe("Seedless Red Grapes", 3, "Lunch", tomatoesIngredients, 699986309));
+//            recipes.add(new Recipe("Mint Choc Ice Cream", 1, "Lunch", tomatoesIngredients, 846972961));
+//            recipes.add(new Recipe("Chocolate Fudge Sauce", 2, "Lunch", tomatoesIngredients, 50800386));
+//            recipes.add(new Recipe("Small Watermelon", 5, "Lunch", tomatoesIngredients, 571290253));
+//            recipes.add(new Recipe("Sweet and Sour Chicken with Rice", 5, "Lunch", tomatoesIngredients, 709390154));
         } catch (Exception e) {
 
         }
