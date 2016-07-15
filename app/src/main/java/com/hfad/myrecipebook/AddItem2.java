@@ -215,7 +215,6 @@ public class AddItem2 extends AppCompatActivity {
                     tickIcon.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            isPromptNeeded=true;
                             String s = addEditText.getText().toString();
                             addEdit.setVisibility(View.GONE);
 
@@ -269,35 +268,35 @@ public class AddItem2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (hasPhotoBeenTaken) {
+                    onSave();
                     AlertDialog diaBox = AskOptionHome();
                     diaBox.show();
                 } else {
-                    Toast.makeText(AddItem2.this, "Please take a photo before saving your recipe.",
+                    Toast.makeText(AddItem2.this, "Cannot save a recipe without an image. To return to home screen, press back button.",
                             Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
-        saveIcon=(ImageView) findViewById(R.id.saveButton);
-
-        saveIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onSave();
-                Toast.makeText(AddItem2.this, "Recipe updated. Press the home button to return to your home page.",
-                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
+//        saveIcon=(ImageView) findViewById(R.id.saveButton);
+//
+//        saveIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onSave();
+//                Toast.makeText(AddItem2.this, "Recipe updated. Press the home button to return to your home page.",
+//                        Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
         deleteIcon=(ImageView) findViewById(R.id.deleteButton);
 
         deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog diaBox = AskOptionDelete();
-                diaBox.show();
+                onBackPressed();
 
             }
         });
@@ -314,9 +313,10 @@ public class AddItem2 extends AppCompatActivity {
                 ingredientList.setEnabled(true);
                 ingredientsText.setText("DELETE INGREDIENT");
                 ingredientsText.setTextColor(Color.parseColor("#fafafa"));
-                addIngredient.setImageResource(R.drawable.ic_close);
+//                addIngredient.setImageResource(R.drawable.ic_close);
                 addIngredient.setEnabled(false);
                 removeIngredient.setVisibility(View.INVISIBLE);
+                addIngredient.setVisibility(View.INVISIBLE);
                 itemsFrame.setBackgroundColor(Color.parseColor("#ff0000"));
                 makeIngredientsClickable();
                 makeTitleClickable();
@@ -336,16 +336,14 @@ public class AddItem2 extends AppCompatActivity {
         recipe.title=titleEdit.getText().toString();
         recipe.rating=lastStarClicked;
         savedIngredients=recipe.ingredients;
-        isPromptNeeded=false;
-
     }
 
     private AlertDialog AskOptionHome() {
         AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
                 //set message, title, and icon
-                .setTitle("Exit Recipe Page")
-                .setMessage("Any unsaved changes will be lost. Would you like to continue?")
-                .setIcon(R.drawable.ic_home)
+                .setTitle("Save Recipe")
+                .setMessage("Recipe will be added to your collection. Have you finished editing?")
+                .setIcon(R.drawable.ic_save)
 
                 .setPositiveButton("No", new DialogInterface.OnClickListener() {
 
@@ -407,6 +405,8 @@ public class AddItem2 extends AppCompatActivity {
     public void openCameraActivity() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, recipe.getUri());
+        Toast.makeText(AddItem2.this, "For best results, use camera in landscape orientation.",
+                Toast.LENGTH_LONG).show();
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
         Log.d("Pointer","Entered Camera Activity *******");
     }
@@ -456,6 +456,34 @@ public class AddItem2 extends AppCompatActivity {
 
     }
 
+    private AlertDialog AskOptionNoPhoto() {
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(this)
+                //set message, title, and icon
+                .setTitle("Cancel New Recipe")
+                .setMessage("All changes will be lost. Continue?")
+                .setIcon(R.drawable.ic_close_purple)
+
+                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+
+                })
+
+                .setNegativeButton("Go Home", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                        finish();
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+
+    }
+
     public void makeIngredientsClickable() {
         ingredientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -479,10 +507,9 @@ public class AddItem2 extends AppCompatActivity {
     public void makeTitleClickable() {
         itemsFrame.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                isPromptNeeded=true;
                 ingredientsText.setText("INGREDIENTS");
                 ingredientsText.setTextColor(Color.parseColor("#311B92"));
-                addIngredient.setImageResource(R.drawable.ic_add);
+                addIngredient.setVisibility(View.VISIBLE);
                 addIngredient.setEnabled(true);
                 removeIngredient.setVisibility(View.VISIBLE);
                 itemsFrame.setBackgroundColor(Color.parseColor("#B39DDB"));
@@ -494,8 +521,14 @@ public class AddItem2 extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        if (hasPhotoBeenTaken) {
-            AlertDialog diaBox = AskOptionHome();
+        if (!titleEdit.getText().toString().equals("")) {
+            isPromptNeeded=true;
+        } else if (ingredients.get(0)!="Press '+' to add Ingredients") {
+            isPromptNeeded=true;
+        }
+
+        if (hasPhotoBeenTaken || isPromptNeeded) {
+            AlertDialog diaBox = AskOptionNoPhoto();
             diaBox.show();
         } else {
             finish();

@@ -173,12 +173,10 @@ public class HomePage extends AppCompatActivity {
                 Recipe r = data.getExtras().getParcelable("recipe");
                 addRecipeToList(r);
             } else {
-                Toast.makeText(HomePage.this, "Item not added to your collection",
-                        Toast.LENGTH_SHORT).show();
             }
         } else if (requestCode == EDIT_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(HomePage.this, "Item successfully passed back to collection",
+                Toast.makeText(HomePage.this, "Your recipe has been added to your collection",
                         Toast.LENGTH_SHORT).show();
 
                 Recipe r = data.getExtras().getParcelable("recipe");
