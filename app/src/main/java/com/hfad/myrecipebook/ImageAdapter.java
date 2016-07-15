@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -73,8 +74,8 @@ public class ImageAdapter extends BaseAdapter {
 
 
         try {
-            imageView.setImageURI(recipe.get(position).getUri());
-            //saveFileToImageView(recipe.get(position).getUri().getPath());
+            //imageView.setImageURI(recipe.get(position).getUri());
+            saveFileToImageView(recipe.get(position).getUri().getPath(), position);
         } catch (Exception e) {
         }
 
@@ -103,7 +104,7 @@ public class ImageAdapter extends BaseAdapter {
         return frameLayout;
     }
 
-    public void saveFileToImageView(String filePath) {
+//    public void saveFileToImageView(String filePath) {
 //        File imgFile = new  File(filePath);
 //
 //        if(imgFile.exists()){
@@ -115,7 +116,65 @@ public class ImageAdapter extends BaseAdapter {
 //        } else {
 //            Log.i("STUFF","Image doesn't exist");
 //        }
+//    }
+
+    public void saveFileToImageView(String filePath, int position) {
+        File imgFile = new  File(filePath);
+
+        if(imgFile.exists()){
+
+            try {
+                ExifInterface ei = new ExifInterface(recipe.get(position).getUri().getPath());
+                int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+                Bitmap yourBitmap = BitmapFactory.decodeFile(imgFile.getPath());
+                Bitmap myBitmap;
+                switch(orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        myBitmap = rotateImage(yourBitmap, 90);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        myBitmap = rotateImage(yourBitmap, 180);
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        myBitmap = rotateImage(yourBitmap, 270);
+                        break;
+                    default:
+                        myBitmap = yourBitmap;
+                }
+                imageView.setImageBitmap(myBitmap);
+
+                //imageAdd.setImageBitmap(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
+//                photoFrame.setVisibility(View.VISIBLE);
+//                cameraButton.setImageResource(R.drawable.ic_add_a_photo_purple);
+//                hasPhotoBeenTaken=true;
+//
+//                LinearLayout titleLayout=(LinearLayout) findViewById(R.id.titleLayout);
+//                titleParams =  (LinearLayout.LayoutParams) titleLayout.getLayoutParams();
+//                titleParams.setMargins(0,10,0,10);
+//                titleLayout.setLayoutParams(titleParams);
+            } catch (Exception e) {
+                Log.d("TAG","FAILURE TO FIND IMAGE SOURCE");
+            }
+
+
+            //imageAdd.setImageBitmap(myBitmap);
+
+            //imageAdd.setImageBitmap(myBitmap);
+//            imageAdd.setImageBitmap(BitmapFactory.decodeFile(imgFile.getAbsolutePath()));
+//            photoFrame.setVisibility(View.VISIBLE);
+//            cameraButton.setImageResource(R.drawable.ic_add_a_photo_purple);
+//            hasPhotoBeenTaken=true;
+//
+//            LinearLayout titleLayout=(LinearLayout) findViewById(R.id.titleLayout);
+//            titleParams =  (LinearLayout.LayoutParams) titleLayout.getLayoutParams();
+//            titleParams.setMargins(0,10,0,10);
+//            titleLayout.setLayoutParams(titleParams);
+
+        } else {
+            Log.i("STUFF","Image doesn't exist");
+        }
     }
+
 
     public static Bitmap rotateImage(Bitmap source, float angle) {
         Bitmap retVal;

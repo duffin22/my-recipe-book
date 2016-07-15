@@ -406,8 +406,6 @@ public class AddItem2 extends AppCompatActivity {
     public void openCameraActivity() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, recipe.getUri());
-        Toast.makeText(AddItem2.this, "For best results, use camera in landscape orientation.",
-                Toast.LENGTH_LONG).show();
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
         Log.d("Pointer","Entered Camera Activity *******");
     }
