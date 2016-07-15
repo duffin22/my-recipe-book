@@ -419,7 +419,7 @@ public class EditItemActivity extends AppCompatActivity {
                 addIngredient.setImageResource(R.drawable.ic_add);
                 addIngredient.setEnabled(true);
                 removeIngredient.setVisibility(View.VISIBLE);
-                itemsFrame.setBackgroundColor(Color.parseColor("#B39DDB"));
+                itemsFrame.setBackgroundColor(Color.parseColor("#33B39DDB"));
                 makeIngredientsUnclickable();
             }
         });
