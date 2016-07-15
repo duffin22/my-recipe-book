@@ -1,5 +1,10 @@
-#ADI Churro - Project 01 - Matthew Duffin
+#ADI Churro - Project 01 - My Recipe Book
 ##General Assembly, Seattle
+
+##The App
+#######
+Add screenshots & description here. To see a short video demonstration of my paper prototype, [click here.] (https://www.youtube.com/watch?v=YfShw1BgMKY)
+
 ###Project Requirements
 #######
 For this project, I was tasked to create my very first Android app that runs on a real Android device! The main goal of the project was to gather knowledge in using **Android Activities, Intents, Layouts & ListViews** over the course of a week. The more specifc requirements were as follows:
@@ -13,7 +18,7 @@ For this project, I was tasked to create my very first Android app that runs on 
 
 ###Summary
 #######
-
+My first experience of creating a fully functioning android application from concept to finished product was thrilling. The feeling of being able to look at something that I have created, that does what I want it to, and is easy on the eye is a great one. I've had highs and lows over the short space of time, but I can already say that pushing to develop great applications is an addiction for me.
 
 ###Step 1: Planning
 #######
@@ -23,7 +28,7 @@ The idea I settled on was to create a **virtual recipe book**. Users will be abl
 
 ###Step 2: Paper Prototype
 #######
-As someone with a passion for all things crafty, I was excited that paper prototyping was to be part of the process. I found this very useful, easily being able to make changes and change usability without having to modify big blocks of code! A small video demonstration of my paper prototype can be found [here.] (https://www.youtube.com/watch?v=YfShw1BgMKY)
+As someone with a passion for all things crafty, I was excited that paper prototyping was to be part of the process. I found this very useful, easily being able to make changes and change usability without having to modify big blocks of code! A short video demonstration of my paper prototype can be found [here.] (https://www.youtube.com/watch?v=YfShw1BgMKY)
 
 ###Step 3: Creating Activity Layouts
 #######
