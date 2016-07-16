@@ -2,9 +2,9 @@
 
 ##My Recipe Book
 <p align="left">
-<img style="padding: 100px" src="./Screenshots/homeactivity.png" width="200">
-<img style="padding: 100px" src="./Screenshots/addactivity.png" width="200">
-<img style="padding: 100px" src="./Screenshots/editactivity.png" width="200">
+<img style="padding: 100px" src="./homeactivity.png" width="200">
+<img style="padding: 100px" src="./addactivity.png" width="200">
+<img style="padding: 100px" src="./editactivity.png" width="200">
 </p>
 The app is a virtual recipe book. Users can document their favourite homemade meals, along with the required ingredients and a rating for future reference. 
 
