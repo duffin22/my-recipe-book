@@ -1,6 +1,5 @@
-#ADI Churro - Project 01
+#My Recipe Book
 
-##My Recipe Book
 <p align="left">
 <img style="padding: 100px" src="./homeactivity.png" width="200">
 <img style="padding: 100px" src="./addactivity.png" width="200">
